@@ -131,6 +131,13 @@ export type GroceryListQuery = {
 	>
 }
 
+export type AddIngredientMutationVariables = Exact<{
+	ingredient: IngredientInput
+	recipeId: Scalars['Int']['input']
+}>
+
+export type AddIngredientMutation = { __typename?: 'Mutation'; addIngredientToRecipe: number }
+
 export type AllRecipesQueryVariables = Exact<{ [key: string]: never }>
 
 export type AllRecipesQuery = {
@@ -399,6 +406,55 @@ export const GroceryListDocument = {
 		}
 	]
 } as unknown as DocumentNode<GroceryListQuery, GroceryListQueryVariables>
+export const AddIngredientDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'AddIngredient' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'ingredient' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'IngredientInput' } }
+					}
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'recipeId' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } }
+					}
+				}
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'addIngredientToRecipe' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'ingredient' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'ingredient' } }
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'recipeId' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'recipeId' } }
+							}
+						]
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<AddIngredientMutation, AddIngredientMutationVariables>
 export const AllRecipesDocument = {
 	kind: 'Document',
 	definitions: [

@@ -16,6 +16,7 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
 type Documents = {
 	'\n\tfragment GroceryItem on GroceryItem {\n\t\tid\n\t\ttitle\n\t\trecipes {\n\t\t\tid\n\t\t\ttitle\n\t\t\trecipes {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t}\n\t\t}\n\t}\n': typeof types.GroceryItemFragmentDoc
 	'\n\tquery GroceryList {\n\t\tgroceryList {\n\t\t\t...GroceryItem\n\t\t}\n\t}\n\n\t\n': typeof types.GroceryListDocument
+	'\n\tmutation AddIngredient($ingredient: IngredientInput!, $recipeId: Int!) {\n\t\taddIngredientToRecipe(ingredient: $ingredient, recipeId: $recipeId)\n\t}\n': typeof types.AddIngredientDocument
 	'\n\tquery AllRecipes {\n\t\trecipes {\n\t\t\t...Recipe\n\t\t}\n\t}\n\n\t\n': typeof types.AllRecipesDocument
 	'\n\tfragment Recipe on Recipe {\n\t\tid\n\t\ttitle\n\t\tcomponents {\n\t\t\tid\n\t\t\tquantity {\n\t\t\t\tquantity\n\t\t\t\tunit\n\t\t\t}\n\t\t\tingredient {\n\t\t\t\t... on Ingredient {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t\t... on Recipe {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t\tcomponents {\n\t\t\t\t\t\tid\n\t\t\t\t\t\tquantity {\n\t\t\t\t\t\t\tquantity\n\t\t\t\t\t\t\tunit\n\t\t\t\t\t\t}\n\t\t\t\t\t\tingredient {\n\t\t\t\t\t\t\t... on Ingredient {\n\t\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\t\ttitle\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n': typeof types.RecipeFragmentDoc
 	'\n\tquery SingleRecipe($recipeId: Int!) {\n\t\trecipe(recipeId: $recipeId) {\n\t\t\t...Recipe\n\t\t}\n\t}\n\n\t\n': typeof types.SingleRecipeDocument
@@ -25,6 +26,8 @@ const documents: Documents = {
 		types.GroceryItemFragmentDoc,
 	'\n\tquery GroceryList {\n\t\tgroceryList {\n\t\t\t...GroceryItem\n\t\t}\n\t}\n\n\t\n':
 		types.GroceryListDocument,
+	'\n\tmutation AddIngredient($ingredient: IngredientInput!, $recipeId: Int!) {\n\t\taddIngredientToRecipe(ingredient: $ingredient, recipeId: $recipeId)\n\t}\n':
+		types.AddIngredientDocument,
 	'\n\tquery AllRecipes {\n\t\trecipes {\n\t\t\t...Recipe\n\t\t}\n\t}\n\n\t\n':
 		types.AllRecipesDocument,
 	'\n\tfragment Recipe on Recipe {\n\t\tid\n\t\ttitle\n\t\tcomponents {\n\t\t\tid\n\t\t\tquantity {\n\t\t\t\tquantity\n\t\t\t\tunit\n\t\t\t}\n\t\t\tingredient {\n\t\t\t\t... on Ingredient {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t\t... on Recipe {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t\tcomponents {\n\t\t\t\t\t\tid\n\t\t\t\t\t\tquantity {\n\t\t\t\t\t\t\tquantity\n\t\t\t\t\t\t\tunit\n\t\t\t\t\t\t}\n\t\t\t\t\t\tingredient {\n\t\t\t\t\t\t\t... on Ingredient {\n\t\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\t\ttitle\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n':
@@ -59,6 +62,12 @@ export function gql(
 export function gql(
 	source: '\n\tquery GroceryList {\n\t\tgroceryList {\n\t\t\t...GroceryItem\n\t\t}\n\t}\n\n\t\n'
 ): (typeof documents)['\n\tquery GroceryList {\n\t\tgroceryList {\n\t\t\t...GroceryItem\n\t\t}\n\t}\n\n\t\n']
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+	source: '\n\tmutation AddIngredient($ingredient: IngredientInput!, $recipeId: Int!) {\n\t\taddIngredientToRecipe(ingredient: $ingredient, recipeId: $recipeId)\n\t}\n'
+): (typeof documents)['\n\tmutation AddIngredient($ingredient: IngredientInput!, $recipeId: Int!) {\n\t\taddIngredientToRecipe(ingredient: $ingredient, recipeId: $recipeId)\n\t}\n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

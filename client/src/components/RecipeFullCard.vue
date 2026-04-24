@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { RecipeFragment } from '@/gql/types';
+import type { RecipeFragment } from '@/gql/types'
+import AddIngredientForm from './AddIngredientForm.vue'
 
 defineProps<{ recipe: RecipeFragment }>()
 </script>
@@ -23,6 +24,7 @@ defineProps<{ recipe: RecipeFragment }>()
 					</v-list-item>
 				</v-list>
 			</template>
+			<add-ingredient-form :recipe="recipe" />
 		</v-container>
 	</v-container>
 </template>

@@ -136,6 +136,13 @@ export type GroceryListQuery = {
 	}>
 }
 
+export type AddIngredientMutationVariables = Exact<{
+	ingredient: IngredientInput
+	recipeId: Scalars['Int']['input']
+}>
+
+export type AddIngredientMutation = { __typename?: 'Mutation'; addIngredientToRecipe: number }
+
 export type AllRecipesQueryVariables = Exact<{ [key: string]: never }>
 
 export type AllRecipesQuery = {
