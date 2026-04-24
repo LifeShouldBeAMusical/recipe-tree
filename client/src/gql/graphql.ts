@@ -108,21 +108,27 @@ export type RecipeTree = {
 	title: Scalars['String']['output']
 }
 
+export type GroceryItemFragment = {
+	__typename?: 'GroceryItem'
+	id: string
+	title: string
+	recipes: Array<{
+		__typename?: 'RecipeTree'
+		id: string
+		title: string
+		recipes: Array<{ __typename?: 'RecipeTree'; id: string; title: string }>
+	}>
+} & { ' $fragmentName'?: 'GroceryItemFragment' }
+
 export type GroceryListQueryVariables = Exact<{ [key: string]: never }>
 
 export type GroceryListQuery = {
 	__typename?: 'Query'
-	groceryList: Array<{
-		__typename?: 'GroceryItem'
-		id: string
-		title: string
-		recipes: Array<{
-			__typename?: 'RecipeTree'
-			id: string
-			title: string
-			recipes: Array<{ __typename?: 'RecipeTree'; id: string; title: string }>
-		}>
-	}>
+	groceryList: Array<
+		{ __typename?: 'GroceryItem' } & {
+			' $fragmentRefs'?: { GroceryItemFragment: GroceryItemFragment }
+		}
+	>
 }
 
 export type AllRecipesQueryVariables = Exact<{ [key: string]: never }>
@@ -169,6 +175,45 @@ export type SingleRecipeQuery = {
 	recipe: { __typename?: 'Recipe' } & { ' $fragmentRefs'?: { RecipeFragment: RecipeFragment } }
 }
 
+export const GroceryItemFragmentDoc = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'GroceryItem' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'GroceryItem' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'title' } },
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'recipes' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'title' } },
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'recipes' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'title' } }
+										]
+									}
+								}
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<GroceryItemFragment, unknown>
 export const RecipeFragmentDoc = {
 	kind: 'Document',
 	definitions: [
@@ -312,6 +357,26 @@ export const GroceryListDocument = {
 						name: { kind: 'Name', value: 'groceryList' },
 						selectionSet: {
 							kind: 'SelectionSet',
+							selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'GroceryItem' } }]
+						}
+					}
+				]
+			}
+		},
+		{
+			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'GroceryItem' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'GroceryItem' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'title' } },
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'recipes' },
+						selectionSet: {
+							kind: 'SelectionSet',
 							selections: [
 								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 								{ kind: 'Field', name: { kind: 'Name', value: 'title' } },
@@ -322,18 +387,7 @@ export const GroceryListDocument = {
 										kind: 'SelectionSet',
 										selections: [
 											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-											{ kind: 'Field', name: { kind: 'Name', value: 'title' } },
-											{
-												kind: 'Field',
-												name: { kind: 'Name', value: 'recipes' },
-												selectionSet: {
-													kind: 'SelectionSet',
-													selections: [
-														{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-														{ kind: 'Field', name: { kind: 'Name', value: 'title' } }
-													]
-												}
-											}
+											{ kind: 'Field', name: { kind: 'Name', value: 'title' } }
 										]
 									}
 								}

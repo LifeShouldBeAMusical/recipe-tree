@@ -107,6 +107,18 @@ export type RecipeTree = {
 	title: Scalars['String']['output']
 }
 
+export type GroceryItemFragment = {
+	__typename?: 'GroceryItem'
+	id: string
+	title: string
+	recipes: Array<{
+		__typename?: 'RecipeTree'
+		id: string
+		title: string
+		recipes: Array<{ __typename?: 'RecipeTree'; id: string; title: string }>
+	}>
+}
+
 export type GroceryListQueryVariables = Exact<{ [key: string]: never }>
 
 export type GroceryListQuery = {

@@ -1,18 +1,12 @@
 import gql from 'graphql-tag'
+import { groceryFragment } from './grocery-fragment'
 
 export const groceryListQuery = gql`
 	query GroceryList {
 		groceryList {
-			id
-			title
-			recipes {
-				id
-				title
-				recipes {
-					id
-					title
-				}
-			}
+			...GroceryItem
 		}
 	}
+
+	${groceryFragment}
 `

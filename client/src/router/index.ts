@@ -16,6 +16,11 @@ const routes = [
 		path: '/recipe/:id',
 		name: 'single-recipe',
 		component: () => import('../views/SingleRecipeView.vue')
+	},
+	{
+		path: '/groceries',
+		name: 'grocery-list',
+		component: () => import('../views/GroceryListView.vue')
 	}
 	// {
 	// 	path: '/about',
