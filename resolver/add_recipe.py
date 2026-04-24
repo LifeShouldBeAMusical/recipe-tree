@@ -12,9 +12,13 @@ async def add_recipe_mutation(self, info: Info, recipe: RecipeInput) -> Recipe:
 
     async with get_async_session() as async_session:
         for ingredient in recipe.ingredients:
-            component_model = ComponentModel(
-                quantity=ingredient.quantity.quantity,
-                quantity_unit=ingredient.quantity.unit,
+            component_model = (
+                ComponentModel(
+                    quantity=ingredient.quantity.quantity,
+                    quantity_unit=ingredient.quantity.unit,
+                )
+                if ingredient.quantity is not None
+                else ComponentModel()
             )
 
             sub_model = await find_ingredient_or_subrecipe(

@@ -21,10 +21,10 @@ async def find_ingredient_or_subrecipe(
     ingredient_model = (
         await async_session.scalars(
             select(BaseIngredientModel).where(
-                BaseIngredientModel.title.like(ingredient_title.title)
+                BaseIngredientModel.title.like(ingredient_title)
             )
         )
-    ).one_or_none() or BaseIngredientModel(title=ingredient_title.title)
+    ).one_or_none() or BaseIngredientModel(title=ingredient_title)
     async_session.add(ingredient_model)
     await async_session.flush()
     await async_session.refresh(ingredient_model)

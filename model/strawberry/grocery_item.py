@@ -1,32 +1,32 @@
+from sqlalchemy import select
 import strawberry
 
-from model.database import BaseIngredientModel, RecipeModel
-
-
-def all_the_way_up(model: RecipeModel) -> str:
-    if len(model.super_components) == 0:
-        return model.title
-    paren = " ,".join(
-        all_the_way_up(super_c.recipe) for super_c in model.super_components
-    )
-    return f"{model.title} ({paren})"
+from database_connection import get_async_session
+from model.database import BaseIngredientModel, ComponentModel, RecipeModel
 
 
 @strawberry.type
 class RecipeTree:
     id: strawberry.ID = strawberry.field
     title: str = strawberry.field
-    recipes: list["RecipeTree"] = strawberry.field
+
+    @strawberry.field
+    async def recipes(self) -> list["RecipeTree"]:
+        async with get_async_session() as async_session:
+            results = (
+                await async_session.scalars(
+                    select(RecipeModel).where(
+                        RecipeModel.components.any(
+                            ComponentModel.sub_recipe_id == self.id
+                        )
+                    )
+                )
+            ).all()
+            return [RecipeTree.marshal(r) for r in results]
 
     @classmethod
     def marshal(cls, model: RecipeModel) -> "RecipeTree":
-        return cls(
-            id=strawberry.ID(model.id),
-            title=model.title,
-            recipes=[
-                RecipeTree.marshal(super_c.recipe) for super_c in model.super_components
-            ],
-        )
+        return cls(id=strawberry.ID(model.id), title=model.title)
 
 
 @strawberry.type
