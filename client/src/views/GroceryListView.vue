@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import GroceryListItem from '@/components/GroceryListItem.vue'
 import { useGroceryStore } from '@/stores/grocery-list-store'
 import { computed, onBeforeMount } from 'vue'
 
@@ -16,19 +17,8 @@ onBeforeMount(() => store.fetchGroceryList())
 		<v-container v-if="loading">Loading</v-container>
 		<v-container v-if="data">
 			<v-list>
-				<v-list-item v-for="d in data" :key="d.id" :title="d.title">
-					<span v-if="d.recipes">
-						(
-						<template v-for="(r, i) in d.recipes" :key="r.id">
-							<template v-if="i > 0">, </template>
-							<a :href="`/recipe/${r.id}`">
-								{{ r.title }}
-							</a>
-						</template>
-						)
-					</span>
-				</v-list-item></v-list
-			>
+				<grocery-list-item v-for="d in data" :key="d.id" :grocery-item="d" />
+			</v-list>
 		</v-container>
 	</v-container>
 </template>
