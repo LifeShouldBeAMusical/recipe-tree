@@ -1,10 +1,10 @@
-from sqlalchemy import select
 from strawberry import Info
 
 from database_connection import get_async_session
-from model.database import BaseIngredientModel, ComponentModel, RecipeModel
+from model.database import ComponentModel, RecipeModel
 from model.strawberry.recipe import Recipe
 from model.strawberry.recipe_input import RecipeInput
+from resolver.find_ingredient_or_subrecipe import find_ingredient_or_subrecipe
 
 
 async def add_recipe_mutation(self, info: Info, recipe: RecipeInput) -> Recipe:
@@ -17,25 +17,14 @@ async def add_recipe_mutation(self, info: Info, recipe: RecipeInput) -> Recipe:
                 quantity_unit=ingredient.quantity.unit,
             )
 
-            if (
-                sub_recipe_model := (
-                    await async_session.scalars(
-                        select(RecipeModel).where(
-                            RecipeModel.title.like(ingredient.title)
-                        )
-                    )
-                ).one_or_none()
-            ) is not None:
-                component_model.sub_recipe = sub_recipe_model
+            sub_model = await find_ingredient_or_subrecipe(
+                async_session, ingredient.title
+            )
+            if isinstance(sub_model, RecipeModel):
+                component_model.sub_recipe = sub_model
             else:
-                ingredient_model = (
-                    await async_session.scalars(
-                        select(BaseIngredientModel).where(
-                            BaseIngredientModel.title.like(ingredient.title)
-                        )
-                    )
-                ).one_or_none() or BaseIngredientModel(title=ingredient.title)
-                component_model.ingredient = ingredient_model
+                component_model.ingredient = sub_model
+
             model.components.append(component_model)
             async_session.add(component_model)
 
