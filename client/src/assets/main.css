@@ -1,0 +1,27 @@
+@import './base.css';
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap');
+
+#app {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 2rem;
+	font-weight: normal;
+}
+
+@media (min-width: 1024px) {
+	body {
+		display: flex;
+		place-items: center;
+	}
+
+	#app {
+		padding: 0 2rem;
+	}
+}
+
+.v-application {
+	[class*='text-'] {
+		font-family: 'Sofia Sans', sans-serif !important;
+	}
+	font-family: 'Sofia Sans', sans-serif !important;
+}

@@ -1,0 +1,84 @@
+(node:3948) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ INFO  Accepting connections at http://localhost:3000
+ HTTP  6/9/2024 4:11:57 PM 104.28.62.24 GET /about
+ HTTP  6/9/2024 4:11:57 PM 104.28.62.24 Returned 404 in 20 ms
+ HTTP  6/9/2024 4:12:01 PM 104.28.62.24 GET /
+ HTTP  6/9/2024 4:12:01 PM 104.28.62.24 Returned 304 in 5 ms
+ HTTP  6/9/2024 4:12:02 PM 104.28.62.24 GET /assets/index-dgQImEZ0.js
+ HTTP  6/9/2024 4:12:02 PM 104.28.62.24 Returned 304 in 5 ms
+ HTTP  6/9/2024 4:12:02 PM 104.28.62.24 GET /assets/gw_logo-BubqGGNL.png
+ HTTP  6/9/2024 4:12:02 PM 104.28.62.24 Returned 304 in 3 ms
+ HTTP  6/9/2024 4:12:02 PM 104.28.62.25 GET /assets/index-DKVJz0-G.css
+ HTTP  6/9/2024 4:12:02 PM 104.28.62.25 Returned 304 in 6 ms
+ HTTP  6/9/2024 4:12:02 PM 104.28.62.24 GET /assets/patrick-robert-doyle-74PvIANT2TQ-unsplash-DVboFfwV.jpg
+ HTTP  6/9/2024 4:12:02 PM 104.28.62.25 GET /assets/malen-almonacid-trossi-25bliZtAuq8-unsplash-CJFCNa28.jpg
+ HTTP  6/9/2024 4:12:02 PM 104.28.62.25 Returned 304 in 3 ms
+ HTTP  6/9/2024 4:12:02 PM 104.28.62.24 Returned 304 in 17 ms
+ HTTP  6/9/2024 4:12:02 PM 104.28.62.25 GET /assets/jackman-chiu-36Vbwo1OiZU-unsplash-BiIiGgkE.jpg
+ HTTP  6/9/2024 4:12:02 PM 104.28.62.24 GET /assets/sophia-simoes-WDbJNWeKvUo-unsplash-BQ4ckCtV.jpg
+ HTTP  6/9/2024 4:12:02 PM 104.28.62.24 Returned 304 in 4 ms
+ HTTP  6/9/2024 4:12:02 PM 104.28.62.25 Returned 304 in 6 ms
+ HTTP  6/9/2024 4:12:03 PM 104.28.62.24 GET /articles
+ HTTP  6/9/2024 4:12:03 PM 104.28.62.24 Returned 404 in 2 ms
+ HTTP  6/9/2024 4:12:03 PM 104.28.62.24 GET /assets/GlacierTitle-Dzy0cdmL.css
+ HTTP  6/9/2024 4:12:03 PM 104.28.62.25 GET /assets/index-DjIbJgX4.js
+ HTTP  6/9/2024 4:12:03 PM 104.28.62.25 GET /assets/date-string-RPUmK4xG.js
+ HTTP  6/9/2024 4:12:03 PM 104.28.62.24 GET /assets/GlaciersView-CsUOfGGc.js
+ HTTP  6/9/2024 4:12:03 PM 104.28.62.24 Returned 304 in 4 ms
+ HTTP  6/9/2024 4:12:03 PM 104.28.62.25 Returned 304 in 3 ms
+ HTTP  6/9/2024 4:12:03 PM 104.28.62.25 Returned 304 in 4 ms
+ HTTP  6/9/2024 4:12:03 PM 104.28.62.24 Returned 304 in 3 ms
+ HTTP  6/9/2024 4:12:03 PM 104.28.62.24 GET /assets/GlaciersView-7Z61UqKq.css
+ HTTP  6/9/2024 4:12:03 PM 104.28.62.24 GET /assets/notices-DNWNSrz6.js
+ HTTP  6/9/2024 4:12:03 PM 104.28.62.24 Returned 304 in 2 ms
+ HTTP  6/9/2024 4:12:03 PM 104.28.62.24 Returned 304 in 2 ms
+ HTTP  6/9/2024 4:12:03 PM 104.28.62.24 GET /assets/GlacierTitle.vue_vue_type_script_setup_true_lang-C2DsFDit.js
+ HTTP  6/9/2024 4:12:03 PM 104.28.62.24 Returned 304 in 2 ms
+ HTTP  6/9/2024 4:12:10 PM 104.28.62.25 GET /
+ HTTP  6/9/2024 4:12:10 PM 104.28.62.25 Returned 304 in 1 ms
+ HTTP  6/9/2024 4:12:10 PM 104.28.62.25 GET /assets/index-dgQImEZ0.js
+ HTTP  6/9/2024 4:12:10 PM 104.28.62.24 GET /assets/index-DKVJz0-G.css
+ HTTP  6/9/2024 4:12:10 PM 104.28.62.25 Returned 304 in 1 ms
+ HTTP  6/9/2024 4:12:10 PM 104.28.62.24 Returned 304 in 1 ms
+ HTTP  6/9/2024 4:12:10 PM 104.28.62.25 GET /assets/gw_logo-BubqGGNL.png
+ HTTP  6/9/2024 4:12:10 PM 104.28.62.25 Returned 304 in 1 ms
+ HTTP  6/9/2024 4:12:10 PM 104.28.62.24 GET /assets/malen-almonacid-trossi-25bliZtAuq8-unsplash-CJFCNa28.jpg
+ HTTP  6/9/2024 4:12:10 PM 104.28.62.25 GET /assets/patrick-robert-doyle-74PvIANT2TQ-unsplash-DVboFfwV.jpg
+ HTTP  6/9/2024 4:12:10 PM 104.28.62.24 Returned 304 in 2 ms
+ HTTP  6/9/2024 4:12:10 PM 104.28.62.25 Returned 304 in 2 ms
+ HTTP  6/9/2024 4:12:10 PM 104.28.62.24 GET /assets/jackman-chiu-36Vbwo1OiZU-unsplash-BiIiGgkE.jpg
+ HTTP  6/9/2024 4:12:10 PM 104.28.62.24 Returned 304 in 1 ms
+ HTTP  6/9/2024 4:12:10 PM 104.28.62.25 GET /assets/sophia-simoes-WDbJNWeKvUo-unsplash-BQ4ckCtV.jpg
+ HTTP  6/9/2024 4:12:10 PM 104.28.62.25 Returned 304 in 1 ms
+ HTTP  6/9/2024 4:12:11 PM 104.28.62.25 GET /assets/GlacierTitle-Dzy0cdmL.css
+ HTTP  6/9/2024 4:12:11 PM 104.28.62.25 Returned 304 in 1 ms
+ HTTP  6/9/2024 4:12:11 PM 104.28.62.24 GET /assets/GlaciersView-7Z61UqKq.css
+ HTTP  6/9/2024 4:12:11 PM 104.28.62.24 Returned 304 in 1 ms
+ HTTP  6/9/2024 4:12:11 PM 104.28.62.25 GET /assets/materialdesignicons-webfont-Dp5v-WZN.woff2?v=7.4.47
+ HTTP  6/9/2024 4:12:11 PM 104.28.62.25 Returned 304 in 3 ms
+ HTTP  6/9/2024 4:12:11 PM 104.28.62.24 GET /assets/default_pic-Df0qT0yg.jpg
+ HTTP  6/9/2024 4:12:11 PM 104.28.62.24 Returned 304 in 2 ms
+ HTTP  6/9/2024 4:12:13 PM 104.28.62.25 GET /assets/default_pic-Df0qT0yg.jpg
+ HTTP  6/9/2024 4:12:13 PM 104.28.62.25 Returned 304 in 1 ms
+ HTTP  6/9/2024 4:12:13 PM 104.28.62.25 GET /assets/GlacierView-CP4G6j_8.css
+ HTTP  6/9/2024 4:12:13 PM 104.28.62.25 Returned 304 in 1 ms
+ HTTP  6/9/2024 4:12:17 PM 104.28.62.25 GET /assets/default_pic-Df0qT0yg.jpg
+ HTTP  6/9/2024 4:12:17 PM 104.28.62.25 Returned 304 in 1 ms
+ HTTP  6/9/2024 4:12:19 PM 104.28.62.25 GET /assets/OurCryosphere-B6LRRm6L.js
+ HTTP  6/9/2024 4:12:19 PM 104.28.62.25 Returned 200 in 4 ms
+ HTTP  6/9/2024 4:12:19 PM 104.28.62.25 GET /assets/LearnArticle-ROgyrWbQ.css
+ HTTP  6/9/2024 4:12:19 PM 104.28.62.25 Returned 304 in 1 ms
+ HTTP  6/9/2024 4:12:19 PM 104.28.62.25 GET /assets/gw_ourcryosphere-D4s8Ye6N.png
+ HTTP  6/9/2024 4:12:19 PM 104.28.62.25 Returned 200 in 55 ms
+
+ INFO  Gracefully shutting down. Please wait...
+
+> glacierwatch@0.0.0 dev
+> vite
+
+
+  VITE v5.2.11  ready in 622 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
