@@ -4,7 +4,17 @@ import { useGroceryStore } from '@/stores/grocery-list-store'
 import { computed, onBeforeMount } from 'vue'
 
 const store = useGroceryStore()
-const data = computed(() => store.groceryList.data)
+const data = computed(() =>
+	store.groceryList.data
+		.map((g) => g)
+		.sort((a, b) =>
+			a.title.toLowerCase() > b.title.toLowerCase()
+				? 1
+				: a.title.toLowerCase() < b.title.toLowerCase()
+					? -1
+					: 0
+		)
+)
 const error = computed(() => store.groceryList.errorState)
 const loading = computed(() => store.groceryList.loading)
 
