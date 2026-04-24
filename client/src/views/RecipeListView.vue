@@ -4,7 +4,17 @@ import { useAllRecipeStore } from '@/stores/all-recipe-store'
 import { computed, onBeforeMount } from 'vue'
 
 const store = useAllRecipeStore()
-const data = computed(() => store.recipeList.data)
+const data = computed(() =>
+	store.recipeList.data
+		.map((r) => r)
+		.sort((a, b) =>
+			a.title.toLowerCase() > b.title.toLowerCase()
+				? 1
+				: a.title.toLowerCase() < b.title.toLowerCase()
+					? -1
+					: 0
+		)
+)
 const error = computed(() => store.recipeList.errorState)
 const loading = computed(() => store.recipeList.loading)
 
