@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { appVersion } from '@/config';
+import { appVersion } from '@/config'
 </script>
 <template>
 	<v-footer>

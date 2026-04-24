@@ -16,7 +16,11 @@ onBeforeMount(() => store.fetchRecipeList())
 		<v-container v-if="loading">Loading</v-container>
 		<v-container v-if="data">
 			<v-card v-for="d in data" :key="d.id">
-				<v-card-title>{{ d.title }}</v-card-title>
+				<v-card-title>
+					<a :href="`/recipe/${d.id}`">
+						{{ d.title }}
+					</a>
+				</v-card-title>
 				<v-card-text>
 					<v-list v-if="d.components.length > 0">
 						<v-list-item v-for="c in d.components" :key="c.id">

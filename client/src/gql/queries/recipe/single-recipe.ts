@@ -1,9 +1,9 @@
 import gql from 'graphql-tag'
 import { recipeFragmentQuery } from './recipe-fragment'
 
-export const allRecipesQuery = gql`
-	query AllRecipes {
-		recipes {
+export const singleRecipeQuery = gql`
+	query SingleRecipe($recipeId: Int!) {
+		recipe(recipeId: $recipeId) {
 			...Recipe
 		}
 	}

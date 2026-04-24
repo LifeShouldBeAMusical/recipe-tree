@@ -11,6 +11,16 @@ from model.strawberry.model import GroceryItem, Recipe
 class Query:
 
     @strawberry.field
+    async def recipe(self, info: strawberry.Info, recipe_id: int) -> Recipe:
+        async with get_async_session() as async_session:
+            result = (
+                await async_session.scalars(
+                    select(RecipeModel).where(RecipeModel.id == recipe_id)
+                )
+            ).one()
+            return Recipe.marshal(result)
+
+    @strawberry.field
     async def recipes() -> list[Recipe]:
         async with get_async_session() as async_session:
             results = (await async_session.scalars(select(RecipeModel))).all()

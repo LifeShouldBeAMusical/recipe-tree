@@ -80,7 +80,12 @@ export type QuantityInput = {
 export type Query = {
 	__typename?: 'Query'
 	groceryList: Array<GroceryItem>
+	recipe: Recipe
 	recipes: Array<Recipe>
+}
+
+export type QueryRecipeArgs = {
+	recipeId: Scalars['Int']['input']
 }
 
 export type Recipe = {
@@ -174,4 +179,37 @@ export type RecipeFragment = {
 					}>
 			  }
 	}>
+}
+
+export type SingleRecipeQueryVariables = Exact<{
+	recipeId: Scalars['Int']['input']
+}>
+
+export type SingleRecipeQuery = {
+	__typename?: 'Query'
+	recipe: {
+		__typename?: 'Recipe'
+		id: string
+		title: string
+		components: Array<{
+			__typename?: 'Component'
+			id: string
+			quantity?: { __typename?: 'Quantity'; quantity: number; unit: string } | null
+			ingredient:
+				| { __typename?: 'Ingredient'; id: string; title: string }
+				| {
+						__typename?: 'Recipe'
+						id: string
+						title: string
+						components: Array<{
+							__typename?: 'Component'
+							id: string
+							quantity?: { __typename?: 'Quantity'; quantity: number; unit: string } | null
+							ingredient:
+								| { __typename?: 'Ingredient'; id: string; title: string }
+								| { __typename?: 'Recipe' }
+						}>
+				  }
+		}>
+	}
 }

@@ -81,7 +81,12 @@ export type QuantityInput = {
 export type Query = {
 	__typename?: 'Query'
 	groceryList: Array<GroceryItem>
+	recipe: Recipe
 	recipes: Array<Recipe>
+}
+
+export type QueryRecipeArgs = {
+	recipeId: Scalars['Int']['input']
 }
 
 export type Recipe = {
@@ -154,6 +159,15 @@ export type RecipeFragment = {
 			  }
 	}>
 } & { ' $fragmentName'?: 'RecipeFragment' }
+
+export type SingleRecipeQueryVariables = Exact<{
+	recipeId: Scalars['Int']['input']
+}>
+
+export type SingleRecipeQuery = {
+	__typename?: 'Query'
+	recipe: { __typename?: 'Recipe' } & { ' $fragmentRefs'?: { RecipeFragment: RecipeFragment } }
+}
 
 export const RecipeFragmentDoc = {
 	kind: 'Document',
@@ -477,3 +491,166 @@ export const AllRecipesDocument = {
 		}
 	]
 } as unknown as DocumentNode<AllRecipesQuery, AllRecipesQueryVariables>
+export const SingleRecipeDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'query',
+			name: { kind: 'Name', value: 'SingleRecipe' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'recipeId' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } }
+					}
+				}
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'recipe' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'recipeId' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'recipeId' } }
+							}
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Recipe' } }]
+						}
+					}
+				]
+			}
+		},
+		{
+			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'Recipe' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Recipe' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'title' } },
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'components' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'quantity' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{ kind: 'Field', name: { kind: 'Name', value: 'quantity' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'unit' } }
+										]
+									}
+								},
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'ingredient' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{
+												kind: 'InlineFragment',
+												typeCondition: {
+													kind: 'NamedType',
+													name: { kind: 'Name', value: 'Ingredient' }
+												},
+												selectionSet: {
+													kind: 'SelectionSet',
+													selections: [
+														{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+														{ kind: 'Field', name: { kind: 'Name', value: 'title' } }
+													]
+												}
+											},
+											{
+												kind: 'InlineFragment',
+												typeCondition: {
+													kind: 'NamedType',
+													name: { kind: 'Name', value: 'Recipe' }
+												},
+												selectionSet: {
+													kind: 'SelectionSet',
+													selections: [
+														{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+														{ kind: 'Field', name: { kind: 'Name', value: 'title' } },
+														{
+															kind: 'Field',
+															name: { kind: 'Name', value: 'components' },
+															selectionSet: {
+																kind: 'SelectionSet',
+																selections: [
+																	{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+																	{
+																		kind: 'Field',
+																		name: { kind: 'Name', value: 'quantity' },
+																		selectionSet: {
+																			kind: 'SelectionSet',
+																			selections: [
+																				{
+																					kind: 'Field',
+																					name: { kind: 'Name', value: 'quantity' }
+																				},
+																				{ kind: 'Field', name: { kind: 'Name', value: 'unit' } }
+																			]
+																		}
+																	},
+																	{
+																		kind: 'Field',
+																		name: { kind: 'Name', value: 'ingredient' },
+																		selectionSet: {
+																			kind: 'SelectionSet',
+																			selections: [
+																				{
+																					kind: 'InlineFragment',
+																					typeCondition: {
+																						kind: 'NamedType',
+																						name: { kind: 'Name', value: 'Ingredient' }
+																					},
+																					selectionSet: {
+																						kind: 'SelectionSet',
+																						selections: [
+																							{
+																								kind: 'Field',
+																								name: { kind: 'Name', value: 'id' }
+																							},
+																							{
+																								kind: 'Field',
+																								name: { kind: 'Name', value: 'title' }
+																							}
+																						]
+																					}
+																				}
+																			]
+																		}
+																	}
+																]
+															}
+														}
+													]
+												}
+											}
+										]
+									}
+								}
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<SingleRecipeQuery, SingleRecipeQueryVariables>
