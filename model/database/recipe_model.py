@@ -20,7 +20,7 @@ class RecipeModel(ModelBase):
         primaryjoin=id == ComponentModel.recipe_id,
         lazy="selectin",
     )
-    super_components: Mapped["RecipeModel"] = relationship(
+    super_components: Mapped[list[ComponentModel]] = relationship(
         back_populates="sub_recipe",
         primaryjoin=id == ComponentModel.sub_recipe_id,
         lazy="selectin",

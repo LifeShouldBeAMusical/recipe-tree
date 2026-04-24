@@ -2,7 +2,7 @@
 
 from typing import Optional
 
-from sqlalchemy import DECIMAL, ForeignKey, Integer, String, UniqueConstraint
+from sqlalchemy import DECIMAL, ForeignKey, Integer, String, UniqueConstraint, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from model.database.base_ingredient_model import BaseIngredientModel
@@ -46,7 +46,7 @@ class ComponentModel(ModelBase):
     )
 
     recipe: Mapped["RecipeModel"] = relationship(  # type: ignore
-        back_populates="components", lazy="selectin"
+        foreign_keys=recipe_id, back_populates="components", lazy="selectin"
     )
     ingredient: Mapped[BaseIngredientModel] = relationship(
         back_populates="components",
@@ -54,5 +54,5 @@ class ComponentModel(ModelBase):
         lazy="selectin",
     )
     sub_recipe: Mapped["RecipeModel"] = relationship(  # type: ignore
-        back_populates="super_components", lazy="selectin"
+        foreign_keys=sub_recipe_id, back_populates="super_components", lazy="selectin"
     )
