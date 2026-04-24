@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Union
 
 from sqlalchemy import select
 import strawberry
@@ -32,14 +32,22 @@ class Ingredient:
 @strawberry.type
 class Component:
     id: strawberry.ID = strawberry.field
-    ingredient: Ingredient = strawberry.field
+    ingredient: Union[Ingredient, "Recipe"] = strawberry.field
     quantity: Optional[Quantity] = strawberry.field
 
     @classmethod
     def marshal(cls, model: ComponentModel) -> "Component":
+
+        i = None
+        if model.ingredient is not None:
+            i = Ingredient.marshal(i)
+        if model.sub_recipe is not None:
+            i = Recipe.marshal(i)
+        assert i is not None
+
         return cls(
             id=strawberry.ID(model.id),
-            ingredient=Ingredient.marshal(model.ingredient),
+            ingredient=i,
             quantity=(
                 Quantity.marshal(model)
                 if model.quantity is not None and model.quantity_unit is not None
@@ -60,9 +68,5 @@ class Recipe:
         return cls(
             id=strawberry.ID(model.id),
             title=model.title,
-            ingredients=[
-                Component.marshal(i)
-                for i in model.components
-                if i.ingredient is not None
-            ],
+            ingredients=[Component.marshal(i) for i in model.components],
         )
