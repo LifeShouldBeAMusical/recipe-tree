@@ -10,7 +10,8 @@ export const graphqlPort = '8000'
 export const graphqlEndpoint = '/graphql'
 
 export const isDevEnvironment = () => {
-	return process.env.NODE_ENV === 'development'
+	// return process.env.NODE_ENV === 'development'
+	return true
 }
 
 const useUriBasedOnEnv = () => (isDevEnvironment() ? devUri : prodUri)
