@@ -3,7 +3,7 @@ import strawberry
 
 from database_connection import get_async_session
 from model.database import ComponentModel, RecipeModel
-from model.strawberry.recipe_input import IngredientInput
+from model.strawberry.model import IngredientInput
 from resolver.find_ingredient_or_subrecipe import find_ingredient_or_subrecipe
 
 

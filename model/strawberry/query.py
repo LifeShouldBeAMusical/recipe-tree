@@ -4,8 +4,7 @@ import strawberry
 from database_connection import get_async_session
 from model.database.base_ingredient_model import BaseIngredientModel
 from model.database.recipe_model import RecipeModel
-from model.strawberry.grocery_item import GroceryItem
-from model.strawberry.recipe import Recipe
+from model.strawberry.model import GroceryItem, Recipe
 
 
 @strawberry.type
