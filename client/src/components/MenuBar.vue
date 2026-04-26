@@ -2,7 +2,7 @@
 
 <template>
 	<v-app-bar flat class="bg-indigo-accent-4">
-		<a class="logo" href="/recipes">Recipes</a>
-		<a class="logo" href="/groceries">Groceries</a>
+		<v-btn href="/recipes">Recipes</v-btn>
+		<v-btn href="/groceries">Groceries</v-btn>
 	</v-app-bar>
 </template>

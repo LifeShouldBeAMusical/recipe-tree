@@ -26,6 +26,7 @@ onBeforeMount(() => store.fetchGroceryList())
 		<v-container v-if="error">Error</v-container>
 		<v-container v-if="loading">Loading</v-container>
 		<v-container v-if="data">
+			<h2>Groceries</h2>
 			<v-list>
 				<grocery-list-item v-for="d in data" :key="d.id" :grocery-item="d" />
 			</v-list>
