@@ -1,0 +1,6 @@
+aiosqlite
+alembic
+black
+fastapi[standard]
+sqlalchemy
+strawberry-graphql
