@@ -1,13 +1,26 @@
 import { apolloClient } from '@/client'
+import { addIngredientMutation } from '@/gql/queries/recipe/add-ingredient'
 import { singleRecipeQuery } from '@/gql/queries/recipe/single-recipe'
-import type { RecipeFragment, SingleRecipeQuery, SingleRecipeQueryVariables } from '@/gql/types'
+import type {
+	AddIngredientMutation,
+	AddIngredientMutationVariables,
+	RecipeFragment,
+	SingleRecipeQuery,
+	SingleRecipeQueryVariables
+} from '@/gql/types'
 import type { QueryResult } from '@/stores/types/query-result'
-import { provideApolloClient, useLazyQuery } from '@vue/apollo-composable'
+import {
+	provideApolloClient,
+	useLazyQuery,
+	useMutation,
+	type MutateFunction
+} from '@vue/apollo-composable'
 import { defineStore } from 'pinia'
 import { computed, ref, type Ref } from 'vue'
 
 export type RecipeStoreType = RecipeStoreStateType & {
 	fetchRecipe: (id: number) => void
+	addIngredient: MutateFunction<AddIngredientMutation, AddIngredientMutationVariables>
 }
 
 type RecipeStoreStateType = {
@@ -22,6 +35,10 @@ const {
 	loading: recipeLoading,
 	error: recipeError
 } = useLazyQuery<SingleRecipeQuery, SingleRecipeQueryVariables>(singleRecipeQuery)
+const { mutate: addIngredient } = useMutation<
+	AddIngredientMutation,
+	AddIngredientMutationVariables
+>(addIngredientMutation)
 
 export const useSingleRecipeStore = defineStore('single-recipe', (): RecipeStoreType => {
 	const recipeData = ref<RecipeFragment | null>(null)
@@ -38,5 +55,5 @@ export const useSingleRecipeStore = defineStore('single-recipe', (): RecipeStore
 	)
 	const fetchRecipe = (id: number) => loadRecipeData(singleRecipeQuery, { recipeId: id })
 
-	return { fetchRecipe, recipe }
+	return { fetchRecipe, recipe, addIngredient }
 })

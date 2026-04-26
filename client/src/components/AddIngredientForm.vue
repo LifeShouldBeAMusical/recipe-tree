@@ -1,24 +1,16 @@
 <script setup lang="ts">
-import { addIngredientMutation } from '@/gql/queries/recipe/add-ingredient'
-import type {
-	AddIngredientMutation,
-	AddIngredientMutationVariables,
-	RecipeFragment
-} from '@/gql/types'
+import type { RecipeFragment } from '@/gql/types'
+import { useSingleRecipeStore } from '@/stores/single-recipe-store'
 import positiveRule from '@/util/positive'
-import { useMutation } from '@vue/apollo-composable'
 import { ref } from 'vue'
 
 defineProps<{ recipe: RecipeFragment }>()
 
+const { addIngredient } = useSingleRecipeStore()
+
 const ingredient = ref<string | null>(null)
 const quantity = ref<number | null>(null)
 const unit = ref<string | null>(null)
-
-const { mutate: addIngredient } = useMutation<
-	AddIngredientMutation,
-	AddIngredientMutationVariables
->(addIngredientMutation)
 </script>
 
 <template>
