@@ -12,7 +12,7 @@ async def add_recipe_mutation(self, info: Info, recipe: RecipeInput) -> Recipe:
 
     async with get_async_session() as async_session:
         async_session.add(model)
-        await async_session.refresh(model)
+        # await async_session.refresh(model)
 
         existing_ingredient_model = (
             await async_session.scalars(
@@ -35,6 +35,7 @@ async def add_recipe_mutation(self, info: Info, recipe: RecipeInput) -> Recipe:
                 if ingredient.quantity is not None
                 else ComponentModel()
             )
+            component_model.recipe = model
 
             sub_model = await find_ingredient_or_subrecipe(
                 async_session, ingredient.title
@@ -44,7 +45,7 @@ async def add_recipe_mutation(self, info: Info, recipe: RecipeInput) -> Recipe:
             else:
                 component_model.ingredient = sub_model
 
-            model.components.append(component_model)
+            # model.components.append(component_model)
             async_session.add(component_model)
 
         await async_session.flush()
