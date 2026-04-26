@@ -2,5 +2,6 @@ aiosqlite
 alembic
 black
 fastapi[standard]
+pylint
 sqlalchemy
 strawberry-graphql
