@@ -15,11 +15,9 @@ class ComponentModel(ModelBase):
     __tablename__ = "component"
     __table_args__ = (
         UniqueConstraint(
-            "recipe_id",
-            "base_ingredient_id",
-            "sub_recipe_id",
-            name="unique_recipe_component",
+            "recipe_id", "base_ingredient_id", name="unique_recipe_ingredient"
         ),
+        UniqueConstraint("recipe_id", "sub_recipe_id", name="unique_recipe_sub_recipe"),
     )
 
     id: Mapped[int] = mapped_column("id", Integer, primary_key=True, autoincrement=True)
