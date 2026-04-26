@@ -2,13 +2,14 @@
 
 from typing import Optional
 
-from sqlalchemy import DECIMAL, ForeignKey, Integer, String, UniqueConstraint, text
+from sqlalchemy import DECIMAL, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from model.database.base_ingredient_model import BaseIngredientModel
 from model.database.base import ModelBase
 
 
+# pylint: disable-next=too-few-public-methods
 class ComponentModel(ModelBase):
     """Recipe Component"""
 

@@ -1,39 +1,18 @@
-from sqlalchemy import select
-import strawberry
+"""Add Ingredient to Recipe"""
 
 from database_connection import get_async_session
-from model.database import ComponentModel, RecipeModel
 from model.strawberry.model import IngredientInput
-from resolver.find_ingredient_or_subrecipe import find_ingredient_or_subrecipe
+from resolver.util import get_component, get_recipe_by_id
 
 
 async def add_ingredient_to_recipe_mutation(
-    self, info: strawberry.Info, recipe_id: int, ingredient: IngredientInput
+    recipe_id: int, ingredient: IngredientInput
 ) -> int:
+    """Add Ingredient to Recipe"""
 
     async with get_async_session() as async_session:
-        recipe_model = (
-            await async_session.scalars(
-                select(RecipeModel).where(RecipeModel.id == recipe_id)
-            )
-        ).one()
-
-        component_model = (
-            ComponentModel(
-                quantity=ingredient.quantity.quantity,
-                quantity_unit=ingredient.quantity.unit,
-            )
-            if ingredient.quantity is not None
-            else ComponentModel()
-        )
-
-        sub_model = await find_ingredient_or_subrecipe(
-            async_session, ingredient.title.strip()
-        )
-        if isinstance(sub_model, RecipeModel):
-            component_model.sub_recipe = sub_model
-        else:
-            component_model.ingredient = sub_model
+        recipe_model = await get_recipe_by_id(async_session, recipe_id)
+        component_model = await get_component(async_session, ingredient)
 
         recipe_model.components.append(component_model)
 

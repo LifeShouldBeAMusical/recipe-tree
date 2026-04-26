@@ -1,14 +1,15 @@
+"""Rename Ingredient"""
+
 from sqlalchemy import select
-import strawberry
 
 from database_connection import get_async_session
 from model.database import BaseIngredientModel
 from model.strawberry.model.grocery_item import GroceryItem
 
 
-async def rename_ingredient_mutation(
-    self, info: strawberry.Info, ingredient_id: int, title: str
-) -> GroceryItem:
+async def rename_ingredient_mutation(ingredient_id: int, title: str) -> GroceryItem:
+    """Rename Ingredient"""
+
     async with get_async_session() as async_session:
         ingredient = (
             await async_session.scalars(

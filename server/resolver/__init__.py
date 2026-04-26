@@ -1,3 +1,5 @@
+"""Resolvers"""
+
 from resolver.add_ingredient_to_recipe import add_ingredient_to_recipe_mutation
 from resolver.add_recipe import add_recipe_mutation
 from resolver.categorize_ingredient import categorize_ingredient_mutation

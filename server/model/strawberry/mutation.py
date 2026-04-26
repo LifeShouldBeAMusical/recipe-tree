@@ -1,3 +1,5 @@
+"""Strawberry Mutation Model"""
+
 import strawberry
 
 from resolver import (
@@ -10,7 +12,9 @@ from resolver import (
 
 
 @strawberry.type
+# pylint: disable-next=too-few-public-methods
 class Mutation:
+    """Strawberry Mutation"""
 
     add_recipe = strawberry.mutation(resolver=add_recipe_mutation)
     add_ingredient_to_recipe = strawberry.mutation(

@@ -1,3 +1,5 @@
+"""Strawberry Schema"""
+
 from strawberry import Schema
 
 from model.strawberry.mutation import Mutation

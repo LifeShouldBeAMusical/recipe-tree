@@ -9,6 +9,7 @@ from model.database.base import ModelBase
 from model.database.base_ingredient_category_model import BaseIngredientCategoryModel
 
 
+# pylint: disable-next=too-few-public-methods
 class BaseIngredientModel(ModelBase):
     """Base Ingredient Table"""
 

@@ -6,9 +6,9 @@ from contextlib import asynccontextmanager
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-from config import database_connection_string
+from config import DATABASE_CONNECTION_STRING
 
-async_engine = create_async_engine(database_connection_string)
+async_engine = create_async_engine(DATABASE_CONNECTION_STRING)
 
 async_session = sessionmaker(
     bind=async_engine,

@@ -6,6 +6,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from model.database.base import ModelBase
 
 
+# pylint: disable-next=too-few-public-methods
 class BaseIngredientCategoryModel(ModelBase):
     """Base Ingredient Category Table"""
 

@@ -7,6 +7,7 @@ from model.database.component_model import ComponentModel
 from model.database.base import ModelBase
 
 
+# pylint: disable-next=too-few-public-methods
 class RecipeModel(ModelBase):
     """Recipe Table"""
 

@@ -1,13 +1,14 @@
+"""Categorize Ingredient"""
+
 from sqlalchemy import select
-import strawberry
 
 from database_connection import get_async_session
 from model.database import BaseIngredientCategoryModel, BaseIngredientModel
 
 
-async def categorize_ingredient_mutation(
-    self, info: strawberry.Info, ingredient_id: int, category: str
-) -> bool:
+async def categorize_ingredient_mutation(ingredient_id: int, category: str) -> bool:
+    """Categorize Ingredient"""
+
     stripped_category = category.strip()
     async with get_async_session() as async_session:
         ingredient_model = (

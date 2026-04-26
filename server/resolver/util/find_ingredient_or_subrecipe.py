@@ -1,3 +1,5 @@
+"""Find Ingredient or Sub-Recipe by Name"""
+
 from typing import Union
 
 from sqlalchemy import select
@@ -9,6 +11,8 @@ from model.database import BaseIngredientModel, RecipeModel
 async def find_ingredient_or_subrecipe(
     async_session: AsyncSession, ingredient_title: str
 ) -> Union[RecipeModel, BaseIngredientModel]:
+    """Find Ingredient or Sub-Recipe by Name"""
+
     if (
         sub_recipe_model := (
             await async_session.scalars(
