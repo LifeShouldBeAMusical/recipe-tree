@@ -50,7 +50,7 @@ class GroceryCategory:
 class GroceryItem:
     id: strawberry.ID = strawberry.field
     title: str = strawberry.field
-    category: GroceryCategory = strawberry.field
+    category: Optional[GroceryCategory] = strawberry.field
     recipes: list[RecipeTree] = strawberry.field
 
     @classmethod
@@ -58,6 +58,10 @@ class GroceryItem:
         return cls(
             id=strawberry.ID(model.id),
             title=model.title,
-            category=GroceryCategory.marshal(model.category),
+            category=(
+                GroceryCategory.marshal(model.category)
+                if model.category is not None
+                else None
+            ),
             recipes=[RecipeTree.marshal(c.recipe) for c in model.components],
         )

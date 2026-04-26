@@ -34,7 +34,7 @@ export type GroceryCategory = {
 
 export type GroceryItem = {
 	__typename?: 'GroceryItem'
-	category: GroceryCategory
+	category?: Maybe<GroceryCategory>
 	id: Scalars['ID']['output']
 	recipes: Array<RecipeTree>
 	title: Scalars['String']['output']
@@ -130,6 +130,7 @@ export type GroceryItemFragment = {
 	__typename?: 'GroceryItem'
 	id: string
 	title: string
+	category?: { __typename?: 'GroceryCategory'; id: string; title: string } | null
 	recipes: Array<{
 		__typename?: 'RecipeTree'
 		id: string
@@ -231,6 +232,17 @@ export const GroceryItemFragmentDoc = {
 				selections: [
 					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'title' } },
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'category' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'title' } }
+							]
+						}
+					},
 					{
 						kind: 'Field',
 						name: { kind: 'Name', value: 'recipes' },
@@ -438,6 +450,17 @@ export const GroceryListDocument = {
 				selections: [
 					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
 					{ kind: 'Field', name: { kind: 'Name', value: 'title' } },
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'category' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'title' } }
+							]
+						}
+					},
 					{
 						kind: 'Field',
 						name: { kind: 'Name', value: 'recipes' },

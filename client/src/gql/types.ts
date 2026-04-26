@@ -33,7 +33,7 @@ export type GroceryCategory = {
 
 export type GroceryItem = {
 	__typename?: 'GroceryItem'
-	category: GroceryCategory
+	category?: Maybe<GroceryCategory>
 	id: Scalars['ID']['output']
 	recipes: Array<RecipeTree>
 	title: Scalars['String']['output']
@@ -129,6 +129,7 @@ export type GroceryItemFragment = {
 	__typename?: 'GroceryItem'
 	id: string
 	title: string
+	category?: { __typename?: 'GroceryCategory'; id: string; title: string } | null
 	recipes: Array<{
 		__typename?: 'RecipeTree'
 		id: string
@@ -155,6 +156,7 @@ export type GroceryListQuery = {
 		__typename?: 'GroceryItem'
 		id: string
 		title: string
+		category?: { __typename?: 'GroceryCategory'; id: string; title: string } | null
 		recipes: Array<{
 			__typename?: 'RecipeTree'
 			id: string

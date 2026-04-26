@@ -14,7 +14,7 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-	'\n\tfragment GroceryItem on GroceryItem {\n\t\tid\n\t\ttitle\n\t\trecipes {\n\t\t\tid\n\t\t\ttitle\n\t\t\trecipes {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\trecipes {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t\trecipes {\n\t\t\t\t\t\tid\n\t\t\t\t\t\ttitle\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n': typeof types.GroceryItemFragmentDoc
+	'\n\tfragment GroceryItem on GroceryItem {\n\t\tid\n\t\ttitle\n\t\tcategory {\n\t\t\tid\n\t\t\ttitle\n\t\t}\n\t\trecipes {\n\t\t\tid\n\t\t\ttitle\n\t\t\trecipes {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\trecipes {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t\trecipes {\n\t\t\t\t\t\tid\n\t\t\t\t\t\ttitle\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n': typeof types.GroceryItemFragmentDoc
 	'\n\tquery GroceryList {\n\t\tgroceryList {\n\t\t\t...GroceryItem\n\t\t}\n\t}\n\n\t\n': typeof types.GroceryListDocument
 	'\n\tmutation AddIngredient($ingredient: IngredientInput!, $recipeId: Int!) {\n\t\taddIngredientToRecipe(ingredient: $ingredient, recipeId: $recipeId)\n\t}\n': typeof types.AddIngredientDocument
 	'\n\tmutation AddRecipe($recipe: RecipeInput!) {\n\t\taddRecipe(recipe: $recipe) {\n\t\t\tid\n\t\t}\n\t}\n': typeof types.AddRecipeDocument
@@ -23,7 +23,7 @@ type Documents = {
 	'\n\tquery SingleRecipe($recipeId: Int!) {\n\t\trecipe(recipeId: $recipeId) {\n\t\t\t...Recipe\n\t\t}\n\t}\n\n\t\n': typeof types.SingleRecipeDocument
 }
 const documents: Documents = {
-	'\n\tfragment GroceryItem on GroceryItem {\n\t\tid\n\t\ttitle\n\t\trecipes {\n\t\t\tid\n\t\t\ttitle\n\t\t\trecipes {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\trecipes {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t\trecipes {\n\t\t\t\t\t\tid\n\t\t\t\t\t\ttitle\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n':
+	'\n\tfragment GroceryItem on GroceryItem {\n\t\tid\n\t\ttitle\n\t\tcategory {\n\t\t\tid\n\t\t\ttitle\n\t\t}\n\t\trecipes {\n\t\t\tid\n\t\t\ttitle\n\t\t\trecipes {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\trecipes {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t\trecipes {\n\t\t\t\t\t\tid\n\t\t\t\t\t\ttitle\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n':
 		types.GroceryItemFragmentDoc,
 	'\n\tquery GroceryList {\n\t\tgroceryList {\n\t\t\t...GroceryItem\n\t\t}\n\t}\n\n\t\n':
 		types.GroceryListDocument,
@@ -57,8 +57,8 @@ export function gql(source: string): unknown
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-	source: '\n\tfragment GroceryItem on GroceryItem {\n\t\tid\n\t\ttitle\n\t\trecipes {\n\t\t\tid\n\t\t\ttitle\n\t\t\trecipes {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\trecipes {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t\trecipes {\n\t\t\t\t\t\tid\n\t\t\t\t\t\ttitle\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n'
-): (typeof documents)['\n\tfragment GroceryItem on GroceryItem {\n\t\tid\n\t\ttitle\n\t\trecipes {\n\t\t\tid\n\t\t\ttitle\n\t\t\trecipes {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\trecipes {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t\trecipes {\n\t\t\t\t\t\tid\n\t\t\t\t\t\ttitle\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n']
+	source: '\n\tfragment GroceryItem on GroceryItem {\n\t\tid\n\t\ttitle\n\t\tcategory {\n\t\t\tid\n\t\t\ttitle\n\t\t}\n\t\trecipes {\n\t\t\tid\n\t\t\ttitle\n\t\t\trecipes {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\trecipes {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t\trecipes {\n\t\t\t\t\t\tid\n\t\t\t\t\t\ttitle\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n'
+): (typeof documents)['\n\tfragment GroceryItem on GroceryItem {\n\t\tid\n\t\ttitle\n\t\tcategory {\n\t\t\tid\n\t\t\ttitle\n\t\t}\n\t\trecipes {\n\t\t\tid\n\t\t\ttitle\n\t\t\trecipes {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\trecipes {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t\trecipes {\n\t\t\t\t\t\tid\n\t\t\t\t\t\ttitle\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
