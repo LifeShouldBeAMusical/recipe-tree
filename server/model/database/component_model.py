@@ -26,12 +26,12 @@ class ComponentModel(ModelBase):
         ForeignKey("recipe.id", None, False, "foreign_recipe_id"),
         nullable=False,
     )
-    ingredient_id: Mapped[int] = mapped_column(
+    ingredient_id: Mapped[Optional[int]] = mapped_column(
         "base_ingredient_id",
         ForeignKey("base_ingredient.id", None, False, "foreign_ingredient_id"),
         nullable=True,
     )
-    sub_recipe_id: Mapped[int] = mapped_column(
+    sub_recipe_id: Mapped[Optional[int]] = mapped_column(
         "sub_recipe_id",
         ForeignKey("recipe.id", None, False, "foreign_sub_recipe_id"),
         nullable=True,
@@ -46,11 +46,11 @@ class ComponentModel(ModelBase):
     recipe: Mapped["RecipeModel"] = relationship(  # type: ignore
         foreign_keys=recipe_id, back_populates="components", lazy="selectin"
     )
-    ingredient: Mapped[BaseIngredientModel] = relationship(
+    ingredient: Mapped[Optional[BaseIngredientModel]] = relationship(
         back_populates="components",
         primaryjoin=ingredient_id == BaseIngredientModel.id,
         lazy="selectin",
     )
-    sub_recipe: Mapped["RecipeModel"] = relationship(  # type: ignore
+    sub_recipe: Mapped[Optional["RecipeModel"]] = relationship(  # type: ignore
         foreign_keys=sub_recipe_id, back_populates="super_components", lazy="selectin"
     )

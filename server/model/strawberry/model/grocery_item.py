@@ -4,7 +4,12 @@ from sqlalchemy import select
 import strawberry
 
 from database_connection import get_async_session
-from model.database import BaseIngredientModel, ComponentModel, RecipeModel
+from model.database import (
+    BaseIngredientCategoryModel,
+    BaseIngredientModel,
+    ComponentModel,
+    RecipeModel,
+)
 
 
 @strawberry.type
@@ -32,9 +37,20 @@ class RecipeTree:
 
 
 @strawberry.type
+class GroceryCategory:
+    id: strawberry.ID = strawberry.field
+    title: str = strawberry.field
+
+    @classmethod
+    def marshal(cls, model: BaseIngredientCategoryModel) -> "GroceryCategory":
+        return cls(id=strawberry.ID(model.id), title=model.title)
+
+
+@strawberry.type
 class GroceryItem:
     id: strawberry.ID = strawberry.field
     title: str = strawberry.field
+    category: GroceryCategory = strawberry.field
     recipes: list[RecipeTree] = strawberry.field
 
     @classmethod
@@ -42,5 +58,6 @@ class GroceryItem:
         return cls(
             id=strawberry.ID(model.id),
             title=model.title,
+            category=GroceryCategory.marshal(model.category),
             recipes=[RecipeTree.marshal(c.recipe) for c in model.components],
         )

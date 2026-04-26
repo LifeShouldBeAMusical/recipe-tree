@@ -26,8 +26,15 @@ export type Component = {
 	quantity?: Maybe<Quantity>
 }
 
+export type GroceryCategory = {
+	__typename?: 'GroceryCategory'
+	id: Scalars['ID']['output']
+	title: Scalars['String']['output']
+}
+
 export type GroceryItem = {
 	__typename?: 'GroceryItem'
+	category: GroceryCategory
 	id: Scalars['ID']['output']
 	recipes: Array<RecipeTree>
 	title: Scalars['String']['output']
@@ -50,6 +57,7 @@ export type Mutation = {
 	__typename?: 'Mutation'
 	addIngredientToRecipe: Scalars['Int']['output']
 	addRecipe: Recipe
+	categorizeIngredient: Scalars['Boolean']['output']
 	deleteRecipe: Scalars['Boolean']['output']
 	renameIngredient: GroceryItem
 }
@@ -61,6 +69,11 @@ export type MutationAddIngredientToRecipeArgs = {
 
 export type MutationAddRecipeArgs = {
 	recipe: RecipeInput
+}
+
+export type MutationCategorizeIngredientArgs = {
+	category: Scalars['String']['input']
+	ingredientId: Scalars['Int']['input']
 }
 
 export type MutationDeleteRecipeArgs = {
