@@ -38,7 +38,7 @@ async def add_recipe_mutation(self, info: Info, recipe: RecipeInput) -> Recipe:
             component_model.recipe = model
 
             sub_model = await find_ingredient_or_subrecipe(
-                async_session, ingredient.title
+                async_session, ingredient.title.strip()
             )
             if isinstance(sub_model, RecipeModel):
                 component_model.sub_recipe = sub_model

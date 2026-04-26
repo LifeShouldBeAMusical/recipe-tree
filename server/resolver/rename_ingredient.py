@@ -17,7 +17,7 @@ async def rename_ingredient_mutation(
                 )
             )
         ).one()
-        ingredient.title = title
+        ingredient.title = title.strip()
         await async_session.commit()
 
         return GroceryItem.marshal(ingredient)

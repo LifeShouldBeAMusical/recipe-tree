@@ -9,6 +9,7 @@ from model.database import BaseIngredientModel
 async def categorize_ingredient_mutation(
     self, info: strawberry.Info, ingredient_id: int, category: str
 ) -> bool:
+    stripped_category = category.strip()
     async with get_async_session() as async_session:
         ingredient_model = (
             await async_session.scalars(
@@ -20,10 +21,10 @@ async def categorize_ingredient_mutation(
         category_model = (
             await async_session.scalars(
                 select(BaseIngredientCategoryModel).where(
-                    BaseIngredientCategoryModel.title.like(category)
+                    BaseIngredientCategoryModel.title.like(stripped_category)
                 )
             )
-        ).one_or_none() or BaseIngredientCategoryModel(title=category)
+        ).one_or_none() or BaseIngredientCategoryModel(title=stripped_category)
         ingredient_model.category = category_model
         await async_session.commit()
 
