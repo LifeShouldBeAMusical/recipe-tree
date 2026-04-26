@@ -1,8 +1,20 @@
 import { apolloClient } from '@/client'
+import { addRecipeMutation } from '@/gql/queries/recipe/add-recipe'
 import { allRecipesQuery } from '@/gql/queries/recipe/all-recipes'
-import type { AllRecipesQuery, AllRecipesQueryVariables, RecipeFragment } from '@/gql/types'
+import type {
+	AddRecipeMutation,
+	AddRecipeMutationVariables,
+	AllRecipesQuery,
+	AllRecipesQueryVariables,
+	RecipeFragment
+} from '@/gql/types'
 import type { QueryResult } from '@/stores/types/query-result'
-import { provideApolloClient, useLazyQuery } from '@vue/apollo-composable'
+import {
+	provideApolloClient,
+	useLazyQuery,
+	useMutation,
+	type MutateFunction
+} from '@vue/apollo-composable'
 import { defineStore } from 'pinia'
 import { computed, ref, type Ref } from 'vue'
 
@@ -10,6 +22,7 @@ export type RecipeListStoreType = RecipeListStoreStateType & {
 	fetchRecipeList: () => void
 	// setPageNumber: (i: number) => void
 	// setPageSize: (i: number | null) => void
+	addRecipe: MutateFunction<AddRecipeMutation, AddRecipeMutationVariables>
 }
 
 type RecipeListStoreStateType = {
@@ -28,6 +41,9 @@ const {
 	loading: recipeLoading,
 	error: recipeError
 } = useLazyQuery<AllRecipesQuery, AllRecipesQueryVariables>(allRecipesQuery)
+const { mutate: addRecipe } = useMutation<AddRecipeMutation, AddRecipeMutationVariables>(
+	addRecipeMutation
+)
 
 export const useAllRecipeStore = defineStore('all-recipe', (): RecipeListStoreType => {
 	// const totalCount = ref<number>()
@@ -64,12 +80,13 @@ export const useAllRecipeStore = defineStore('all-recipe', (): RecipeListStoreTy
 
 	return {
 		fetchRecipeList,
-		recipeList
+		recipeList,
 		// pageNumber,
 		// pageSize,
 		// setPageNumber,
 		// setPageSize,
 		// totalCount,
 		// totalPages
+		addRecipe
 	}
 })

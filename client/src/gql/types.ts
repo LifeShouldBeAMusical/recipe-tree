@@ -49,6 +49,7 @@ export type Mutation = {
 	__typename?: 'Mutation'
 	addIngredientToRecipe: Scalars['Int']['output']
 	addRecipe: Recipe
+	deleteRecipe: Scalars['Boolean']['output']
 	renameIngredient: GroceryItem
 }
 
@@ -59,6 +60,10 @@ export type MutationAddIngredientToRecipeArgs = {
 
 export type MutationAddRecipeArgs = {
 	recipe: RecipeInput
+}
+
+export type MutationDeleteRecipeArgs = {
+	recipeId: Scalars['Int']['input']
 }
 
 export type MutationRenameIngredientArgs = {
@@ -142,6 +147,15 @@ export type AddIngredientMutationVariables = Exact<{
 }>
 
 export type AddIngredientMutation = { __typename?: 'Mutation'; addIngredientToRecipe: number }
+
+export type AddRecipeMutationVariables = Exact<{
+	recipe: RecipeInput
+}>
+
+export type AddRecipeMutation = {
+	__typename?: 'Mutation'
+	addRecipe: { __typename?: 'Recipe'; id: string }
+}
 
 export type AllRecipesQueryVariables = Exact<{ [key: string]: never }>
 

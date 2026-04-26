@@ -6,7 +6,7 @@ import { ref } from 'vue'
 
 defineProps<{ recipe: RecipeFragment }>()
 
-const { addIngredient } = useSingleRecipeStore()
+const store = useSingleRecipeStore()
 
 const ingredient = ref<string | null>(null)
 const quantity = ref<number | null>(null)
@@ -27,7 +27,7 @@ const unit = ref<string | null>(null)
 						block
 						v-on:click="
 							ingredient &&
-							addIngredient({
+							store.addIngredient({
 								recipeId: Number.parseInt(recipe.id),
 								ingredient: {
 									title: ingredient,

@@ -50,6 +50,7 @@ export type Mutation = {
 	__typename?: 'Mutation'
 	addIngredientToRecipe: Scalars['Int']['output']
 	addRecipe: Recipe
+	deleteRecipe: Scalars['Boolean']['output']
 	renameIngredient: GroceryItem
 }
 
@@ -60,6 +61,10 @@ export type MutationAddIngredientToRecipeArgs = {
 
 export type MutationAddRecipeArgs = {
 	recipe: RecipeInput
+}
+
+export type MutationDeleteRecipeArgs = {
+	recipeId: Scalars['Int']['input']
 }
 
 export type MutationRenameIngredientArgs = {
@@ -137,6 +142,15 @@ export type AddIngredientMutationVariables = Exact<{
 }>
 
 export type AddIngredientMutation = { __typename?: 'Mutation'; addIngredientToRecipe: number }
+
+export type AddRecipeMutationVariables = Exact<{
+	recipe: RecipeInput
+}>
+
+export type AddRecipeMutation = {
+	__typename?: 'Mutation'
+	addRecipe: { __typename?: 'Recipe'; id: string }
+}
 
 export type AllRecipesQueryVariables = Exact<{ [key: string]: never }>
 
@@ -455,6 +469,46 @@ export const AddIngredientDocument = {
 		}
 	]
 } as unknown as DocumentNode<AddIngredientMutation, AddIngredientMutationVariables>
+export const AddRecipeDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'AddRecipe' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'recipe' } },
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'RecipeInput' } }
+					}
+				}
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'addRecipe' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'recipe' },
+								value: { kind: 'Variable', name: { kind: 'Name', value: 'recipe' } }
+							}
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [{ kind: 'Field', name: { kind: 'Name', value: 'id' } }]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<AddRecipeMutation, AddRecipeMutationVariables>
 export const AllRecipesDocument = {
 	kind: 'Document',
 	definitions: [
