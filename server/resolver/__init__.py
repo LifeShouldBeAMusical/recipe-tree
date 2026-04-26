@@ -1,3 +1,4 @@
 from resolver.add_ingredient_to_recipe import add_ingredient_to_recipe_mutation
 from resolver.add_recipe import add_recipe_mutation
+from resolver.delete_recipe import delete_recipe_mutation
 from resolver.rename_ingredient import rename_ingredient_mutation
