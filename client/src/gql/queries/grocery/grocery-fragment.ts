@@ -10,6 +10,14 @@ export const groceryFragment = gql`
 			recipes {
 				id
 				title
+				recipes {
+					id
+					title
+					recipes {
+						id
+						title
+					}
+				}
 			}
 		}
 	}

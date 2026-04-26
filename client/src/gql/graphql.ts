@@ -109,7 +109,7 @@ export type RecipeInput = {
 export type RecipeTree = {
 	__typename?: 'RecipeTree'
 	id: Scalars['ID']['output']
-	recipes: Array<RecipeTree>
+	recipes?: Maybe<Array<RecipeTree>>
 	title: Scalars['String']['output']
 }
 
@@ -121,7 +121,17 @@ export type GroceryItemFragment = {
 		__typename?: 'RecipeTree'
 		id: string
 		title: string
-		recipes: Array<{ __typename?: 'RecipeTree'; id: string; title: string }>
+		recipes?: Array<{
+			__typename?: 'RecipeTree'
+			id: string
+			title: string
+			recipes?: Array<{
+				__typename?: 'RecipeTree'
+				id: string
+				title: string
+				recipes?: Array<{ __typename?: 'RecipeTree'; id: string; title: string }> | null
+			}> | null
+		}> | null
 	}>
 } & { ' $fragmentName'?: 'GroceryItemFragment' }
 
@@ -223,7 +233,29 @@ export const GroceryItemFragmentDoc = {
 										kind: 'SelectionSet',
 										selections: [
 											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-											{ kind: 'Field', name: { kind: 'Name', value: 'title' } }
+											{ kind: 'Field', name: { kind: 'Name', value: 'title' } },
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'recipes' },
+												selectionSet: {
+													kind: 'SelectionSet',
+													selections: [
+														{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+														{ kind: 'Field', name: { kind: 'Name', value: 'title' } },
+														{
+															kind: 'Field',
+															name: { kind: 'Name', value: 'recipes' },
+															selectionSet: {
+																kind: 'SelectionSet',
+																selections: [
+																	{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+																	{ kind: 'Field', name: { kind: 'Name', value: 'title' } }
+																]
+															}
+														}
+													]
+												}
+											}
 										]
 									}
 								}
@@ -408,7 +440,29 @@ export const GroceryListDocument = {
 										kind: 'SelectionSet',
 										selections: [
 											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-											{ kind: 'Field', name: { kind: 'Name', value: 'title' } }
+											{ kind: 'Field', name: { kind: 'Name', value: 'title' } },
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'recipes' },
+												selectionSet: {
+													kind: 'SelectionSet',
+													selections: [
+														{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+														{ kind: 'Field', name: { kind: 'Name', value: 'title' } },
+														{
+															kind: 'Field',
+															name: { kind: 'Name', value: 'recipes' },
+															selectionSet: {
+																kind: 'SelectionSet',
+																selections: [
+																	{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+																	{ kind: 'Field', name: { kind: 'Name', value: 'title' } }
+																]
+															}
+														}
+													]
+												}
+											}
 										]
 									}
 								}

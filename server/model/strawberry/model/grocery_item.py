@@ -1,3 +1,5 @@
+from typing import Optional
+
 from sqlalchemy import select
 import strawberry
 
@@ -11,7 +13,7 @@ class RecipeTree:
     title: str = strawberry.field
 
     @strawberry.field
-    async def recipes(self) -> list["RecipeTree"]:
+    async def recipes(self) -> Optional[list["RecipeTree"]]:
         async with get_async_session() as async_session:
             results = (
                 await async_session.scalars(

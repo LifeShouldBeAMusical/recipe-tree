@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import type { RecipeTree } from '@/gql/types'
 
-defineProps<{
-	recipe: Partial<RecipeTree> | { id: string; recipes: Partial<RecipeTree>[]; title: string }
-}>()
+defineProps<{ recipe: Partial<RecipeTree> }>()
 </script>
 
 <template>

@@ -108,7 +108,7 @@ export type RecipeInput = {
 export type RecipeTree = {
 	__typename?: 'RecipeTree'
 	id: Scalars['ID']['output']
-	recipes: Array<RecipeTree>
+	recipes?: Maybe<Array<RecipeTree>>
 	title: Scalars['String']['output']
 }
 
@@ -120,7 +120,17 @@ export type GroceryItemFragment = {
 		__typename?: 'RecipeTree'
 		id: string
 		title: string
-		recipes: Array<{ __typename?: 'RecipeTree'; id: string; title: string }>
+		recipes?: Array<{
+			__typename?: 'RecipeTree'
+			id: string
+			title: string
+			recipes?: Array<{
+				__typename?: 'RecipeTree'
+				id: string
+				title: string
+				recipes?: Array<{ __typename?: 'RecipeTree'; id: string; title: string }> | null
+			}> | null
+		}> | null
 	}>
 }
 
@@ -136,7 +146,17 @@ export type GroceryListQuery = {
 			__typename?: 'RecipeTree'
 			id: string
 			title: string
-			recipes: Array<{ __typename?: 'RecipeTree'; id: string; title: string }>
+			recipes?: Array<{
+				__typename?: 'RecipeTree'
+				id: string
+				title: string
+				recipes?: Array<{
+					__typename?: 'RecipeTree'
+					id: string
+					title: string
+					recipes?: Array<{ __typename?: 'RecipeTree'; id: string; title: string }> | null
+				}> | null
+			}> | null
 		}>
 	}>
 }
