@@ -34,7 +34,7 @@ onBeforeMount(() => store.fetchGroceryList())
 		<v-container v-if="loading">Loading</v-container>
 		<v-container v-if="categorizedData">
 			<h2>Groceries</h2>
-			<template v-for="category in Object.keys( categorizedData).sort()" :key="category">
+			<template v-for="category in Object.keys(categorizedData).sort()" :key="category">
 				<h3>{{ category }}</h3>
 				<v-list>
 					<grocery-list-item v-for="d in categorizedData[category]" :key="d.id" :grocery-item="d" />
