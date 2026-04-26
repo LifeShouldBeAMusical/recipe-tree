@@ -2,8 +2,7 @@ from sqlalchemy import select
 import strawberry
 
 from database_connection import get_async_session
-from model.database import BaseIngredientCategoryModel
-from model.database import BaseIngredientModel
+from model.database import BaseIngredientCategoryModel, BaseIngredientModel
 
 
 async def categorize_ingredient_mutation(

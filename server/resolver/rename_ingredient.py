@@ -2,7 +2,7 @@ from sqlalchemy import select
 import strawberry
 
 from database_connection import get_async_session
-from model.database.base_ingredient_model import BaseIngredientModel
+from model.database import BaseIngredientModel
 from model.strawberry.model.grocery_item import GroceryItem
 
 
