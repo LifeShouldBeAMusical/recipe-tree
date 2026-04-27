@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name,no-member,unused-import,wrong-import-order
+
 """Fix Unique Component
 
 Revision ID: cf2eef9b38cd

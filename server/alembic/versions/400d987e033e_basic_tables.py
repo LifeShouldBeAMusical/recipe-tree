@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name,no-member,wrong-import-order
+
 """Basic Tables
 
 Revision ID: 400d987e033e

@@ -1,3 +1,7 @@
+# pylint: disable=no-member
+
+"""Alembic Environment"""
+
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config

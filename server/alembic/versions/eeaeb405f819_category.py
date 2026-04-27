@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name,no-member,wrong-import-order
+
 """Category
 
 Revision ID: eeaeb405f819
