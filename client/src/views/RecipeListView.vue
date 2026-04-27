@@ -17,7 +17,7 @@ onBeforeMount(() => store.fetchRecipeList())
 	<v-container>
 		<v-container v-if="error">Error</v-container>
 		<v-container v-if="loading">Loading</v-container>
-		<v-container v-if="data">
+		<v-container v-if="data.length > 0">
 			<recipe-card v-for="d in data" :key="d.id" :recipe="d" />
 			<add-recipe-form />
 		</v-container>

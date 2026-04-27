@@ -109,9 +109,10 @@ export type QueryRecipeArgs = {
 
 export type Recipe = {
 	__typename?: 'Recipe'
-	components: Array<Component>
+	components?: Maybe<Array<Component>>
 	id: Scalars['ID']['output']
 	title: Scalars['String']['output']
+	uses?: Maybe<Array<Recipe>>
 }
 
 export type RecipeInput = {
@@ -176,20 +177,11 @@ export type AddRecipeMutation = {
 	addRecipe: { __typename?: 'Recipe'; id: string }
 }
 
-export type AllRecipesQueryVariables = Exact<{ [key: string]: never }>
-
-export type AllRecipesQuery = {
-	__typename?: 'Query'
-	recipes: Array<
-		{ __typename?: 'Recipe' } & { ' $fragmentRefs'?: { RecipeFragment: RecipeFragment } }
-	>
-}
-
 export type RecipeFragment = {
 	__typename?: 'Recipe'
 	id: string
 	title: string
-	components: Array<{
+	components?: Array<{
 		__typename?: 'Component'
 		id: string
 		quantity?: { __typename?: 'Quantity'; quantity: number; unit: string } | null
@@ -199,17 +191,41 @@ export type RecipeFragment = {
 					__typename?: 'Recipe'
 					id: string
 					title: string
-					components: Array<{
+					components?: Array<{
 						__typename?: 'Component'
 						id: string
 						quantity?: { __typename?: 'Quantity'; quantity: number; unit: string } | null
 						ingredient:
 							| { __typename?: 'Ingredient'; id: string; title: string }
 							| { __typename?: 'Recipe' }
-					}>
+					}> | null
 			  }
-	}>
+	}> | null
 } & { ' $fragmentName'?: 'RecipeFragment' }
+
+export type AllRecipesQueryVariables = Exact<{ [key: string]: never }>
+
+export type AllRecipesQuery = {
+	__typename?: 'Query'
+	recipes: Array<
+		{ __typename?: 'Recipe' } & { ' $fragmentRefs'?: { RecipeFragment: RecipeFragment } }
+	>
+}
+
+export type SingleRecipeFragment = {
+	__typename?: 'Recipe'
+	id: string
+	title: string
+	components?: Array<{
+		__typename?: 'Component'
+		id: string
+		quantity?: { __typename?: 'Quantity'; quantity: number; unit: string } | null
+		ingredient:
+			| { __typename?: 'Ingredient'; id: string; title: string }
+			| { __typename?: 'Recipe'; id: string; title: string }
+	}> | null
+	uses?: Array<{ __typename?: 'Recipe'; id: string; title: string }> | null
+} & { ' $fragmentName'?: 'SingleRecipeFragment' }
 
 export type SingleRecipeQueryVariables = Exact<{
 	recipeId: Scalars['Int']['input']
@@ -217,7 +233,9 @@ export type SingleRecipeQueryVariables = Exact<{
 
 export type SingleRecipeQuery = {
 	__typename?: 'Query'
-	recipe: { __typename?: 'Recipe' } & { ' $fragmentRefs'?: { RecipeFragment: RecipeFragment } }
+	recipe: { __typename?: 'Recipe' } & {
+		' $fragmentRefs'?: { SingleRecipeFragment: SingleRecipeFragment }
+	}
 }
 
 export const GroceryItemFragmentDoc = {
@@ -420,6 +438,92 @@ export const RecipeFragmentDoc = {
 		}
 	]
 } as unknown as DocumentNode<RecipeFragment, unknown>
+export const SingleRecipeFragmentDoc = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'FragmentDefinition',
+			name: { kind: 'Name', value: 'SingleRecipe' },
+			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Recipe' } },
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+					{ kind: 'Field', name: { kind: 'Name', value: 'title' } },
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'components' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'quantity' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{ kind: 'Field', name: { kind: 'Name', value: 'quantity' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'unit' } }
+										]
+									}
+								},
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'ingredient' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{
+												kind: 'InlineFragment',
+												typeCondition: {
+													kind: 'NamedType',
+													name: { kind: 'Name', value: 'Ingredient' }
+												},
+												selectionSet: {
+													kind: 'SelectionSet',
+													selections: [
+														{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+														{ kind: 'Field', name: { kind: 'Name', value: 'title' } }
+													]
+												}
+											},
+											{
+												kind: 'InlineFragment',
+												typeCondition: {
+													kind: 'NamedType',
+													name: { kind: 'Name', value: 'Recipe' }
+												},
+												selectionSet: {
+													kind: 'SelectionSet',
+													selections: [
+														{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+														{ kind: 'Field', name: { kind: 'Name', value: 'title' } }
+													]
+												}
+											}
+										]
+									}
+								}
+							]
+						}
+					},
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'uses' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'title' } }
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+} as unknown as DocumentNode<SingleRecipeFragment, unknown>
 export const GroceryListDocument = {
 	kind: 'Document',
 	definitions: [
@@ -777,7 +881,9 @@ export const SingleRecipeDocument = {
 						],
 						selectionSet: {
 							kind: 'SelectionSet',
-							selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'Recipe' } }]
+							selections: [
+								{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'SingleRecipe' } }
+							]
 						}
 					}
 				]
@@ -785,7 +891,7 @@ export const SingleRecipeDocument = {
 		},
 		{
 			kind: 'FragmentDefinition',
-			name: { kind: 'Name', value: 'Recipe' },
+			name: { kind: 'Name', value: 'SingleRecipe' },
 			typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Recipe' } },
 			selectionSet: {
 				kind: 'SelectionSet',
@@ -840,66 +946,24 @@ export const SingleRecipeDocument = {
 													kind: 'SelectionSet',
 													selections: [
 														{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-														{ kind: 'Field', name: { kind: 'Name', value: 'title' } },
-														{
-															kind: 'Field',
-															name: { kind: 'Name', value: 'components' },
-															selectionSet: {
-																kind: 'SelectionSet',
-																selections: [
-																	{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-																	{
-																		kind: 'Field',
-																		name: { kind: 'Name', value: 'quantity' },
-																		selectionSet: {
-																			kind: 'SelectionSet',
-																			selections: [
-																				{
-																					kind: 'Field',
-																					name: { kind: 'Name', value: 'quantity' }
-																				},
-																				{ kind: 'Field', name: { kind: 'Name', value: 'unit' } }
-																			]
-																		}
-																	},
-																	{
-																		kind: 'Field',
-																		name: { kind: 'Name', value: 'ingredient' },
-																		selectionSet: {
-																			kind: 'SelectionSet',
-																			selections: [
-																				{
-																					kind: 'InlineFragment',
-																					typeCondition: {
-																						kind: 'NamedType',
-																						name: { kind: 'Name', value: 'Ingredient' }
-																					},
-																					selectionSet: {
-																						kind: 'SelectionSet',
-																						selections: [
-																							{
-																								kind: 'Field',
-																								name: { kind: 'Name', value: 'id' }
-																							},
-																							{
-																								kind: 'Field',
-																								name: { kind: 'Name', value: 'title' }
-																							}
-																						]
-																					}
-																				}
-																			]
-																		}
-																	}
-																]
-															}
-														}
+														{ kind: 'Field', name: { kind: 'Name', value: 'title' } }
 													]
 												}
 											}
 										]
 									}
 								}
+							]
+						}
+					},
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'uses' },
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+								{ kind: 'Field', name: { kind: 'Name', value: 'title' } }
 							]
 						}
 					}

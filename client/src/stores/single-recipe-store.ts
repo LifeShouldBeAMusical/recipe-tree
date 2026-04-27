@@ -4,7 +4,7 @@ import { singleRecipeQuery } from '@/gql/queries/recipe/single-recipe'
 import type {
 	AddIngredientMutation,
 	AddIngredientMutationVariables,
-	RecipeFragment,
+	Recipe,
 	SingleRecipeQuery,
 	SingleRecipeQueryVariables
 } from '@/gql/types'
@@ -24,7 +24,7 @@ export type RecipeStoreType = RecipeStoreStateType & {
 }
 
 type RecipeStoreStateType = {
-	recipe: QueryResult<RecipeFragment | null> | Ref<QueryResult<RecipeFragment | null>>
+	recipe: QueryResult<Recipe | null> | Ref<QueryResult<Recipe | null>>
 }
 
 provideApolloClient(apolloClient)
@@ -41,8 +41,8 @@ const { mutate: addIngredient } = useMutation<
 >(addIngredientMutation)
 
 export const useSingleRecipeStore = defineStore('single-recipe', (): RecipeStoreType => {
-	const recipeData = ref<RecipeFragment | null>(null)
-	const recipe = computed<QueryResult<RecipeFragment | null>>(() => ({
+	const recipeData = ref<Recipe | null>(null)
+	const recipe = computed<QueryResult<Recipe | null>>(() => ({
 		data: recipeData.value,
 		loading: recipeLoading.value ? true : false,
 		errorState: recipeError.value ? true : false

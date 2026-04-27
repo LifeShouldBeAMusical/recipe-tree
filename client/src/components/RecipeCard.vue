@@ -12,7 +12,7 @@ defineProps<{ recipe: RecipeFragment }>()
 			</a>
 		</v-card-title>
 		<v-card-text>
-			<template v-if="recipe.components.length > 0">
+			<template v-if="recipe.components && recipe.components.length > 0">
 				<h4>Contains:</h4>
 				<p>{{ recipe.components.map((c) => c.ingredient.title).join(', ') }}</p>
 			</template>

@@ -71,7 +71,7 @@ class Recipe(IdTitle):
     """Recipe"""
 
     @strawberry.field
-    async def components(self) -> list[Component]:
+    async def components(self) -> Optional[list[Component]]:
         """Lazy-Fetch Components"""
 
         async with get_async_session() as async_session:
@@ -82,6 +82,19 @@ class Recipe(IdTitle):
                 )
             ).all()
             return [Component.marshal(c) for c in results]
+
+    @strawberry.field
+    async def uses(self) -> Optional[list["Recipe"]]:
+        """Lazy-Fetch Super-Components"""
+
+        async with get_async_session() as async_session:
+            results = (
+                await async_session.scalars(
+                    # pylint: disable-next=comparison-with-callable
+                    select(RecipeModel).where(RecipeModel.components.any(ComponentModel.sub_recipe_id == self.id))
+                )
+            ).all()
+            return [Recipe.marshal(c) for c in results]
 
     @classmethod
     def marshal(cls, model: RecipeModel) -> "Recipe":

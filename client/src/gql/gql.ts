@@ -18,9 +18,10 @@ type Documents = {
 	'\n\tquery GroceryList {\n\t\tgroceryList {\n\t\t\t...GroceryItem\n\t\t}\n\t}\n\n\t\n': typeof types.GroceryListDocument
 	'\n\tmutation AddIngredient($ingredient: IngredientInput!, $recipeId: Int!) {\n\t\taddIngredientToRecipe(ingredient: $ingredient, recipeId: $recipeId)\n\t}\n': typeof types.AddIngredientDocument
 	'\n\tmutation AddRecipe($recipe: RecipeInput!) {\n\t\taddRecipe(recipe: $recipe) {\n\t\t\tid\n\t\t}\n\t}\n': typeof types.AddRecipeDocument
-	'\n\tquery AllRecipes {\n\t\trecipes {\n\t\t\t...Recipe\n\t\t}\n\t}\n\n\t\n': typeof types.AllRecipesDocument
 	'\n\tfragment Recipe on Recipe {\n\t\tid\n\t\ttitle\n\t\tcomponents {\n\t\t\tid\n\t\t\tquantity {\n\t\t\t\tquantity\n\t\t\t\tunit\n\t\t\t}\n\t\t\tingredient {\n\t\t\t\t... on Ingredient {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t\t... on Recipe {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t\tcomponents {\n\t\t\t\t\t\tid\n\t\t\t\t\t\tquantity {\n\t\t\t\t\t\t\tquantity\n\t\t\t\t\t\t\tunit\n\t\t\t\t\t\t}\n\t\t\t\t\t\tingredient {\n\t\t\t\t\t\t\t... on Ingredient {\n\t\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\t\ttitle\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n': typeof types.RecipeFragmentDoc
-	'\n\tquery SingleRecipe($recipeId: Int!) {\n\t\trecipe(recipeId: $recipeId) {\n\t\t\t...Recipe\n\t\t}\n\t}\n\n\t\n': typeof types.SingleRecipeDocument
+	'\n\tquery AllRecipes {\n\t\trecipes {\n\t\t\t...Recipe\n\t\t}\n\t}\n\n\t\n': typeof types.AllRecipesDocument
+	'\n\tfragment SingleRecipe on Recipe {\n\t\tid\n\t\ttitle\n\t\tcomponents {\n\t\t\tid\n\t\t\tquantity {\n\t\t\t\tquantity\n\t\t\t\tunit\n\t\t\t}\n\t\t\tingredient {\n\t\t\t\t... on Ingredient {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t\t... on Recipe {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tuses {\n\t\t\tid\n\t\t\ttitle\n\t\t}\n\t}\n': typeof types.SingleRecipeFragmentDoc
+	'\n\tquery SingleRecipe($recipeId: Int!) {\n\t\trecipe(recipeId: $recipeId) {\n\t\t\t...SingleRecipe\n\t\t}\n\t}\n\n\t\n': typeof types.SingleRecipeDocument
 }
 const documents: Documents = {
 	'\n\tfragment GroceryItem on GroceryItem {\n\t\tid\n\t\ttitle\n\t\tcategory {\n\t\t\tid\n\t\t\ttitle\n\t\t}\n\t\trecipes {\n\t\t\tid\n\t\t\ttitle\n\t\t\trecipes {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\trecipes {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t\trecipes {\n\t\t\t\t\t\tid\n\t\t\t\t\t\ttitle\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n':
@@ -31,11 +32,13 @@ const documents: Documents = {
 		types.AddIngredientDocument,
 	'\n\tmutation AddRecipe($recipe: RecipeInput!) {\n\t\taddRecipe(recipe: $recipe) {\n\t\t\tid\n\t\t}\n\t}\n':
 		types.AddRecipeDocument,
-	'\n\tquery AllRecipes {\n\t\trecipes {\n\t\t\t...Recipe\n\t\t}\n\t}\n\n\t\n':
-		types.AllRecipesDocument,
 	'\n\tfragment Recipe on Recipe {\n\t\tid\n\t\ttitle\n\t\tcomponents {\n\t\t\tid\n\t\t\tquantity {\n\t\t\t\tquantity\n\t\t\t\tunit\n\t\t\t}\n\t\t\tingredient {\n\t\t\t\t... on Ingredient {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t\t... on Recipe {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t\tcomponents {\n\t\t\t\t\t\tid\n\t\t\t\t\t\tquantity {\n\t\t\t\t\t\t\tquantity\n\t\t\t\t\t\t\tunit\n\t\t\t\t\t\t}\n\t\t\t\t\t\tingredient {\n\t\t\t\t\t\t\t... on Ingredient {\n\t\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\t\ttitle\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n':
 		types.RecipeFragmentDoc,
-	'\n\tquery SingleRecipe($recipeId: Int!) {\n\t\trecipe(recipeId: $recipeId) {\n\t\t\t...Recipe\n\t\t}\n\t}\n\n\t\n':
+	'\n\tquery AllRecipes {\n\t\trecipes {\n\t\t\t...Recipe\n\t\t}\n\t}\n\n\t\n':
+		types.AllRecipesDocument,
+	'\n\tfragment SingleRecipe on Recipe {\n\t\tid\n\t\ttitle\n\t\tcomponents {\n\t\t\tid\n\t\t\tquantity {\n\t\t\t\tquantity\n\t\t\t\tunit\n\t\t\t}\n\t\t\tingredient {\n\t\t\t\t... on Ingredient {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t\t... on Recipe {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tuses {\n\t\t\tid\n\t\t\ttitle\n\t\t}\n\t}\n':
+		types.SingleRecipeFragmentDoc,
+	'\n\tquery SingleRecipe($recipeId: Int!) {\n\t\trecipe(recipeId: $recipeId) {\n\t\t\t...SingleRecipe\n\t\t}\n\t}\n\n\t\n':
 		types.SingleRecipeDocument
 }
 
@@ -81,20 +84,26 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-	source: '\n\tquery AllRecipes {\n\t\trecipes {\n\t\t\t...Recipe\n\t\t}\n\t}\n\n\t\n'
-): (typeof documents)['\n\tquery AllRecipes {\n\t\trecipes {\n\t\t\t...Recipe\n\t\t}\n\t}\n\n\t\n']
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(
 	source: '\n\tfragment Recipe on Recipe {\n\t\tid\n\t\ttitle\n\t\tcomponents {\n\t\t\tid\n\t\t\tquantity {\n\t\t\t\tquantity\n\t\t\t\tunit\n\t\t\t}\n\t\t\tingredient {\n\t\t\t\t... on Ingredient {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t\t... on Recipe {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t\tcomponents {\n\t\t\t\t\t\tid\n\t\t\t\t\t\tquantity {\n\t\t\t\t\t\t\tquantity\n\t\t\t\t\t\t\tunit\n\t\t\t\t\t\t}\n\t\t\t\t\t\tingredient {\n\t\t\t\t\t\t\t... on Ingredient {\n\t\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\t\ttitle\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n'
 ): (typeof documents)['\n\tfragment Recipe on Recipe {\n\t\tid\n\t\ttitle\n\t\tcomponents {\n\t\t\tid\n\t\t\tquantity {\n\t\t\t\tquantity\n\t\t\t\tunit\n\t\t\t}\n\t\t\tingredient {\n\t\t\t\t... on Ingredient {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t\t... on Recipe {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t\tcomponents {\n\t\t\t\t\t\tid\n\t\t\t\t\t\tquantity {\n\t\t\t\t\t\t\tquantity\n\t\t\t\t\t\t\tunit\n\t\t\t\t\t\t}\n\t\t\t\t\t\tingredient {\n\t\t\t\t\t\t\t... on Ingredient {\n\t\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\t\ttitle\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n']
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-	source: '\n\tquery SingleRecipe($recipeId: Int!) {\n\t\trecipe(recipeId: $recipeId) {\n\t\t\t...Recipe\n\t\t}\n\t}\n\n\t\n'
-): (typeof documents)['\n\tquery SingleRecipe($recipeId: Int!) {\n\t\trecipe(recipeId: $recipeId) {\n\t\t\t...Recipe\n\t\t}\n\t}\n\n\t\n']
+	source: '\n\tquery AllRecipes {\n\t\trecipes {\n\t\t\t...Recipe\n\t\t}\n\t}\n\n\t\n'
+): (typeof documents)['\n\tquery AllRecipes {\n\t\trecipes {\n\t\t\t...Recipe\n\t\t}\n\t}\n\n\t\n']
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+	source: '\n\tfragment SingleRecipe on Recipe {\n\t\tid\n\t\ttitle\n\t\tcomponents {\n\t\t\tid\n\t\t\tquantity {\n\t\t\t\tquantity\n\t\t\t\tunit\n\t\t\t}\n\t\t\tingredient {\n\t\t\t\t... on Ingredient {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t\t... on Recipe {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tuses {\n\t\t\tid\n\t\t\ttitle\n\t\t}\n\t}\n'
+): (typeof documents)['\n\tfragment SingleRecipe on Recipe {\n\t\tid\n\t\ttitle\n\t\tcomponents {\n\t\t\tid\n\t\t\tquantity {\n\t\t\t\tquantity\n\t\t\t\tunit\n\t\t\t}\n\t\t\tingredient {\n\t\t\t\t... on Ingredient {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t\t... on Recipe {\n\t\t\t\t\tid\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tuses {\n\t\t\tid\n\t\t\ttitle\n\t\t}\n\t}\n']
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+	source: '\n\tquery SingleRecipe($recipeId: Int!) {\n\t\trecipe(recipeId: $recipeId) {\n\t\t\t...SingleRecipe\n\t\t}\n\t}\n\n\t\n'
+): (typeof documents)['\n\tquery SingleRecipe($recipeId: Int!) {\n\t\trecipe(recipeId: $recipeId) {\n\t\t\t...SingleRecipe\n\t\t}\n\t}\n\n\t\n']
 
 export function gql(source: string) {
 	return (documents as any)[source] ?? {}

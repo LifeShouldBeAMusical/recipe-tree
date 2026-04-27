@@ -108,9 +108,10 @@ export type QueryRecipeArgs = {
 
 export type Recipe = {
 	__typename?: 'Recipe'
-	components: Array<Component>
+	components?: Maybe<Array<Component>>
 	id: Scalars['ID']['output']
 	title: Scalars['String']['output']
+	uses?: Maybe<Array<Recipe>>
 }
 
 export type RecipeInput = {
@@ -192,42 +193,11 @@ export type AddRecipeMutation = {
 	addRecipe: { __typename?: 'Recipe'; id: string }
 }
 
-export type AllRecipesQueryVariables = Exact<{ [key: string]: never }>
-
-export type AllRecipesQuery = {
-	__typename?: 'Query'
-	recipes: Array<{
-		__typename?: 'Recipe'
-		id: string
-		title: string
-		components: Array<{
-			__typename?: 'Component'
-			id: string
-			quantity?: { __typename?: 'Quantity'; quantity: number; unit: string } | null
-			ingredient:
-				| { __typename?: 'Ingredient'; id: string; title: string }
-				| {
-						__typename?: 'Recipe'
-						id: string
-						title: string
-						components: Array<{
-							__typename?: 'Component'
-							id: string
-							quantity?: { __typename?: 'Quantity'; quantity: number; unit: string } | null
-							ingredient:
-								| { __typename?: 'Ingredient'; id: string; title: string }
-								| { __typename?: 'Recipe' }
-						}>
-				  }
-		}>
-	}>
-}
-
 export type RecipeFragment = {
 	__typename?: 'Recipe'
 	id: string
 	title: string
-	components: Array<{
+	components?: Array<{
 		__typename?: 'Component'
 		id: string
 		quantity?: { __typename?: 'Quantity'; quantity: number; unit: string } | null
@@ -237,16 +207,62 @@ export type RecipeFragment = {
 					__typename?: 'Recipe'
 					id: string
 					title: string
-					components: Array<{
+					components?: Array<{
 						__typename?: 'Component'
 						id: string
 						quantity?: { __typename?: 'Quantity'; quantity: number; unit: string } | null
 						ingredient:
 							| { __typename?: 'Ingredient'; id: string; title: string }
 							| { __typename?: 'Recipe' }
-					}>
+					}> | null
 			  }
+	}> | null
+}
+
+export type AllRecipesQueryVariables = Exact<{ [key: string]: never }>
+
+export type AllRecipesQuery = {
+	__typename?: 'Query'
+	recipes: Array<{
+		__typename?: 'Recipe'
+		id: string
+		title: string
+		components?: Array<{
+			__typename?: 'Component'
+			id: string
+			quantity?: { __typename?: 'Quantity'; quantity: number; unit: string } | null
+			ingredient:
+				| { __typename?: 'Ingredient'; id: string; title: string }
+				| {
+						__typename?: 'Recipe'
+						id: string
+						title: string
+						components?: Array<{
+							__typename?: 'Component'
+							id: string
+							quantity?: { __typename?: 'Quantity'; quantity: number; unit: string } | null
+							ingredient:
+								| { __typename?: 'Ingredient'; id: string; title: string }
+								| { __typename?: 'Recipe' }
+						}> | null
+				  }
+		}> | null
 	}>
+}
+
+export type SingleRecipeFragment = {
+	__typename?: 'Recipe'
+	id: string
+	title: string
+	components?: Array<{
+		__typename?: 'Component'
+		id: string
+		quantity?: { __typename?: 'Quantity'; quantity: number; unit: string } | null
+		ingredient:
+			| { __typename?: 'Ingredient'; id: string; title: string }
+			| { __typename?: 'Recipe'; id: string; title: string }
+	}> | null
+	uses?: Array<{ __typename?: 'Recipe'; id: string; title: string }> | null
 }
 
 export type SingleRecipeQueryVariables = Exact<{
@@ -259,25 +275,14 @@ export type SingleRecipeQuery = {
 		__typename?: 'Recipe'
 		id: string
 		title: string
-		components: Array<{
+		components?: Array<{
 			__typename?: 'Component'
 			id: string
 			quantity?: { __typename?: 'Quantity'; quantity: number; unit: string } | null
 			ingredient:
 				| { __typename?: 'Ingredient'; id: string; title: string }
-				| {
-						__typename?: 'Recipe'
-						id: string
-						title: string
-						components: Array<{
-							__typename?: 'Component'
-							id: string
-							quantity?: { __typename?: 'Quantity'; quantity: number; unit: string } | null
-							ingredient:
-								| { __typename?: 'Ingredient'; id: string; title: string }
-								| { __typename?: 'Recipe' }
-						}>
-				  }
-		}>
+				| { __typename?: 'Recipe'; id: string; title: string }
+		}> | null
+		uses?: Array<{ __typename?: 'Recipe'; id: string; title: string }> | null
 	}
 }
