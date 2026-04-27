@@ -2,20 +2,11 @@
 import AddRecipeForm from '@/components/AddRecipeForm.vue'
 import RecipeCard from '@/components/RecipeCard.vue'
 import { useAllRecipeStore } from '@/stores/all-recipe-store'
+import sortByTitle from '@/util/sort-by-title'
 import { computed, onBeforeMount } from 'vue'
 
 const store = useAllRecipeStore()
-const data = computed(() =>
-	store.recipeList.data
-		.map((r) => r)
-		.sort((a, b) =>
-			a.title.toLowerCase() > b.title.toLowerCase()
-				? 1
-				: a.title.toLowerCase() < b.title.toLowerCase()
-					? -1
-					: 0
-		)
-)
+const data = computed(() => store.recipeList.data.map((r) => r).sort(sortByTitle))
 const error = computed(() => store.recipeList.errorState)
 const loading = computed(() => store.recipeList.loading)
 

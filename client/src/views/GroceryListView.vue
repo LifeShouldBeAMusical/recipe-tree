@@ -2,6 +2,7 @@
 import GroceryListItem from '@/components/GroceryListItem.vue'
 import type { GroceryItemFragment } from '@/gql/types'
 import { useGroceryStore } from '@/stores/grocery-list-store'
+import sortByTitle from '@/util/sort-by-title'
 import { computed, onBeforeMount } from 'vue'
 
 const store = useGroceryStore()
@@ -11,13 +12,7 @@ const categorizedData = computed<Record<string, GroceryItemFragment[]>>(() => {
 		const category = g.category?.title ?? 'Uncategorized'
 		result = {
 			...result,
-			[category]: [...(result[category] ?? []), g].sort((a, b) =>
-				a.title.toLowerCase() > b.title.toLowerCase()
-					? 1
-					: a.title.toLowerCase() < b.title.toLowerCase()
-						? -1
-						: 0
-			)
+			[category]: [...(result[category] ?? []), g].sort(sortByTitle)
 		}
 	})
 	return result
